@@ -129,47 +129,24 @@
 
       <!-- What's New Section -->
       <section id="whats-new" class="py-5">
-        <h2 class="text-center mb-5">Novedades en la Versión 1.1.5</h2>
+        <h2 class="text-center mb-5">Novedades</h2>
         <div class="row">
-          <div class="col-md-6 col-lg-4 mb-4 feature-card">
-            <div class="card bg-dark-subtle h-100">
-              <div class="card-body">
-                <h5 class="card-title">
-                  <i class="bi bi-box-arrow-in-down-right text-primary"></i>
-                  Ejecución en Fondo
-                </h5>
-                <p class="card-text">
-                  Minimiza la aplicación al área de notificación (System Tray)
-                  para que siga monitoreando tu PC sin ocupar espacio visual.
-                </p>
-              </div>
+          <!-- Version Navigation -->
+          <div class="col-md-3">
+            <div class="list-group" id="release-versions">
+              <a href="pages/v1.1.5.html" class="list-group-item list-group-item-action active" aria-current="true">
+                Versión 1.1.5 (Actual)
+              </a>
+              <a href="pages/v1.1.4.html" class="list-group-item list-group-item-action">
+                Versión 1.1.4
+              </a>
             </div>
+             <p class="text-muted small mt-2">Selecciona una versión para ver sus novedades.</p>
           </div>
-          <div class="col-md-6 col-lg-4 mb-4 feature-card">
-            <div class="card bg-dark-subtle h-100">
-              <div class="card-body">
-                <h5 class="card-title">
-                  <i class="bi bi-shield-lock-fill text-primary"></i> Mayor
-                  Robustez
-                </h5>
-                <p class="card-text">
-                  Mejorada la detección de errores en Winget, permisos en
-                  Servicios y prevención de fallos críticos.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-12 col-lg-4 mb-4 feature-card">
-            <div class="card bg-dark-subtle h-100">
-              <div class="card-body">
-                <h5 class="card-title">
-                  <i class="bi bi-bug-fill text-primary"></i> Correcciones
-                </h5>
-                <p class="card-text">
-                  Solventados problemas de acceso denegado en puntos de
-                  restauración y estabilidad general del sistema.
-                </p>
-              </div>
+          <!-- Release Content -->
+          <div class="col-md-9">
+            <div id="release-content">
+              <!-- El contenido de la versión se cargará aquí -->
             </div>
           </div>
         </div>
