@@ -19,14 +19,14 @@
     <link rel="stylesheet" href="style.css" />
     
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../Resources/img/logo_WCS.ico">
+    <link rel="icon" type="image/x-icon" href="img/logo_WCS.ico">
   </head>
   <body data-bs-theme="dark">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
         <a class="navbar-brand" href="#">
-          <img src="../Resources/img/logo_WCS.svg" alt="Logo" width="30" height="30" class="d-inline-block align-text-top me-2">
+          <img src="img/logo_WCS.svg" alt="Logo" width="30" height="30" class="d-inline-block align-text-top me-2">
           WassControlSys
         </a>
         <button
@@ -97,6 +97,7 @@
                   Obtén información detallada de tu CPU, GPU, RAM, discos y más,
                   todo en un solo lugar.
                 </p>
+                <img src="img/hardware V1.1.5.png" alt="Diagnóstico de Hardware" class="img-fluid rounded mt-3">
               </div>
             </div>
           </div>
@@ -109,6 +110,7 @@
                   Elimina archivos basura, limpia la caché y ejecuta
                   herramientas de mantenimiento del sistema con un solo clic.
                 </p>
+                <img src="img/mantenimiento V1.1.5.png" alt="Limpieza y Mantenimiento" class="img-fluid rounded mt-3">
               </div>
             </div>
           </div>
@@ -121,6 +123,7 @@
                   Gestiona procesos, optimiza servicios de Windows y controla
                   las aplicaciones que inician con tu sistema.
                 </p>
+                <img src="img/rendimiento V1.1.5.png" alt="Optimización Avanzada" class="img-fluid rounded mt-3">
               </div>
             </div>
           </div>
@@ -134,8 +137,11 @@
           <!-- Version Navigation -->
           <div class="col-md-3">
             <div class="list-group" id="release-versions">
-              <a href="pages/v1.1.5.html" class="list-group-item list-group-item-action active" aria-current="true">
-                Versión 1.1.5 (Actual)
+              <a href="pages/v1.1.6.html" class="list-group-item list-group-item-action active" aria-current="true">
+                Versión 1.1.6 (Actual)
+              </a>
+              <a href="pages/v1.1.5.html" class="list-group-item list-group-item-action">
+                Versión 1.1.5
               </a>
               <a href="pages/v1.1.4.html" class="list-group-item list-group-item-action">
                 Versión 1.1.4
@@ -204,7 +210,7 @@
 
         <div class="d-grid gap-2 col-md-6 mx-auto mb-4">
           <a
-            href="https://github.com/WilmerWass/WassControlSys/releases/download/v1.1.5/WassControlSys_v1.1.5_SelfContained.zip"
+            href="https://github.com/WilmerWass/WassControlSys/releases/download/v1.1.6/WassControlSys_v1.1.6_SelfContained.zip"
             class="btn btn-primary btn-lg"
           >
             <i class="bi bi-box-seam-fill"></i> Descarga Directa (Autocontenida)
@@ -214,7 +220,7 @@
             funcionar, no requiere instalación adicional de .NET.
           </p>
           <a
-            href="https://github.com/WilmerWass/WassControlSys/releases/download/v1.1.5/WassControlSys_v1.1.5_Normal.zip"
+            href="https://github.com/WilmerWass/WassControlSys/releases/download/v1.1.6/WassControlSys_v1.1.6_Normal.zip"
             class="btn btn-outline-primary btn-lg mt-2"
           >
             <i class="bi bi-download"></i> Descarga Directa (Requiere .NET 8.0)
@@ -228,22 +234,27 @@
         <p class="mt-4">
           ¿Quieres explorar el código, ver otras versiones o contribuir?
         </p>
-        <a
-          href="https://github.com/WilmerWass/WassControlSys"
-          class="btn btn-outline-secondary btn-lg"
-          target="_blank"
-        >
-          <i class="bi bi-github"></i> Ir al Repositorio en GitHub
-        </a>
-
-        <p class="mt-3 text-body-secondary">Versión 1.1.5 (Estable)</p>
+                  <a
+                    href="https://github.com/WilmerWass/WassControlSys"
+                    class="btn btn-outline-secondary btn-lg"
+                    target="_blank"
+                  >
+                    <i class="bi bi-github"></i> Ir al Repositorio en GitHub
+                  </a>
+        
+                  <div class="mt-3">
+                    <p class="text-body-secondary small mb-1">O descarga el código fuente directamente:</p>
+                    <a href="https://github.com/WilmerWass/WassControlSys/archive/refs/tags/v1.1.6.zip" class="text-body-secondary small me-3">Código Fuente (.zip)</a>
+                    <a href="https://github.WilmerWass/WassControlSys/archive/refs/tags/v1.1.6.tar.gz" class="text-body-secondary small">Código Fuente (.tar.gz)</a>
+                  </div>
+        <p class="mt-3 text-body-secondary">Versión 1.1.6 (Estable)</p>
       </section>
     </main>
 
     <!-- Footer -->
     <footer class="bg-dark text-white text-center py-4">
       <div class="container">
-        <img src="../Resources/img/logo_WCS.svg" alt="Logo" width="40" height="40" class="mb-3">
+        <img src="img/logo_WCS.svg" alt="Logo" width="40" height="40" class="mb-3">
         <p>
           &copy; 2025 WassControlSys. Creado con
           <i class="bi bi-heart-fill" style="color: #ff4d4d"></i> por
