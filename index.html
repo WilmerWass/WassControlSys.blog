@@ -1,291 +1,509 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WassControlSys - Optimiza y Controla tu PC</title>
 
-    <!-- Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="WassControlSys: Herramienta gratuita y de código abierto para monitorear, limpiar y optimizar tu PC. Descarga la última versión y mejora el rendimiento de tu sistema." />
+  <title>WassControlSys - Optimiza y Controla tu PC</title>
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css" />
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="img/logo_WCS.ico">
-  </head>
-  <body data-bs-theme="dark">
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="#">
-          <img src="img/logo_WCS.svg" alt="Logo" width="30" height="30" class="d-inline-block align-text-top me-2">
-          WassControlSys
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="img/logo_WCS.ico">
+</head>
+
+<body data-bs-theme="dark">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNavbar">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+        <img src="img/logo_WCS.svg" alt="Logo" width="35" height="35" class="d-inline-block align-text-top">
+        <span class="fw-bold tracking-tight">WassControlSys</span>
+      </a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-center">
+          <li class="nav-item">
+            <a class="nav-link" href="#features">Características</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#gallery">Galería</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#ai-edition">AI-Edition</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#roadmap">Hoja de Ruta</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#faq">FAQ</a>
+          </li>
+          <li class="nav-item ms-lg-2">
+            <a href="#download" class="btn btn-primary btn-sm px-3 rounded-pill">Descargar</a>
+          </li>
+          <li class="nav-item ms-lg-2">
+            <a class="nav-link p-0 fs-5" href="https://github.com/WilmerWass/WassControlSys" target="_blank"
+              aria-label="GitHub"><i class="bi bi-github"></i></a>
+          </li>
+          <!-- Theme Toggler -->
+          <li class="nav-item ms-lg-2">
+            <button class="btn btn-link nav-link border-0 p-0 fs-5" id="theme-toggler" type="button"
+              aria-label="Toggle Theme">
+              <i class="bi bi-moon-stars-fill"></i>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header
+    class="hero-section text-center text-white d-flex align-items-center justify-content-center position-relative overflow-hidden">
+    <!-- Animated Background Elements -->
+    <div class="hero-bg-glow"></div>
+
+    <div class="container position-relative z-1">
+      <span
+        class="badge bg-primary bg-opacity-25 text-primary border border-primary mb-3 px-3 py-2 rounded-pill fade-in-up"
+        style="animation-delay: 0.1s;">v1.1.6 Disponible Ahora</span>
+      <h1 class="display-3 fw-bold mb-3 fade-in-up" style="animation-delay: 0.2s;">
+        Control Total.<br />
+        <span class="text-gradient">Rendimiento Máximo.</span>
+      </h1>
+      <p class="lead mb-5 fade-in-up text-secondary-light mx-auto" style="max-width: 700px; animation-delay: 0.3s;">
+        WassControlSys es la suite open-source definitiva para monitorear, limpiar y acelerar tu PC.
+        Diseñada para gamers y power users.
+      </p>
+      <div class="d-flex justify-content-center gap-3 fade-in-up" style="animation-delay: 0.4s;">
+        <a href="#download" class="btn btn-primary btn-lg rounded-pill px-5 shadow-lg icon-link">
+          <i class="bi bi-windows"></i> Descargar
         </a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
+        <a href="#features" class="btn btn-outline-light btn-lg rounded-pill px-4">
+          Explorar
+        </a>
+      </div>
+    </div>
+    <div class="scroll-down-indicator">
+      <i class="bi bi-chevron-down"></i>
+    </div>
+  </header>
+
+  <!-- Discord Community Section (Compact) -->
+  <section id="discord-community" class="py-4 bg-darker border-bottom border-secondary border-opacity-25">
+    <div
+      class="container d-flex flex-column flex-md-row align-items-center justify-content-center gap-4 text-center text-md-start">
+      <div class="d-flex align-items-center gap-3">
+        <i class="bi bi-discord fs-2 text-discord"></i>
+        <div>
+          <h5 class="m-0 fw-bold">Únete a la comunidad</h5>
+          <p class="m-0 text-muted small">Feedback directo, soporte y novedades.</p>
+        </div>
+      </div>
+      <a href="https://discord.gg/U8RdpqP3wS" target="_blank" class="btn btn-discord btn-sm rounded-pill px-4">
+        Unirse a Discord
+      </a>
+    </div>
+  </section>
+
+  <main class="container py-5">
+    <!-- Features Section -->
+    <section id="features" class="py-5">
+      <div class="text-center mb-5 section-header">
+        <h6 class="text-primary text-uppercase letter-spacing-2">Potencia tu PC</h6>
+        <h2 class="display-5 fw-bold">Todo lo que necesitas</h2>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card h-100 feature-card glass-card border-0">
+            <div class="card-body p-4 text-center">
+              <div class="feature-icon-wrapper mb-4">
+                <i class="bi bi-speedometer2 text-gradient fs-1"></i>
+              </div>
+              <h3 class="card-title h4 fw-bold">Diagnóstico de Hardware</h3>
+              <p class="card-text text-muted">
+                Monitoreo en tiempo real de CPU, GPU, RAM y temperaturas. Conoce tu hardware a fondo.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 feature-card glass-card border-0">
+            <div class="card-body p-4 text-center">
+              <div class="feature-icon-wrapper mb-4">
+                <i class="bi bi-stars text-gradient fs-1"></i>
+              </div>
+              <h3 class="card-title h4 fw-bold">Limpieza Inteligente</h3>
+              <p class="card-text text-muted">
+                Elimina basura del sistema, caché de navegadores y archivos temporales para recuperar espacio.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 feature-card glass-card border-0">
+            <div class="card-body p-4 text-center">
+              <div class="feature-icon-wrapper mb-4">
+                <i class="bi bi-sliders text-gradient fs-1"></i>
+              </div>
+              <h3 class="card-title h4 fw-bold">Optimización de Servicios</h3>
+              <p class="card-text text-muted">
+                Gestiona procesos de inicio y servicios de Windows innecesarios para un arranque veloz.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery Section (New) -->
+    <section id="gallery" class="py-5">
+      <div class="text-center mb-5 section-header">
+        <h6 class="text-primary text-uppercase letter-spacing-2">Interfaz</h6>
+        <h2 class="display-5 fw-bold">Visualiza el Control</h2>
+      </div>
+      <div id="screenshotsCarousel"
+        class="carousel slide rounded-4 overflow-hidden shadow-lg border border-secondary border-opacity-25"
+        data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#screenshotsCarousel" data-bs-slide-to="0" class="active"
+            aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#screenshotsCarousel" data-bs-slide-to="1"
+            aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#screenshotsCarousel" data-bs-slide-to="2"
+            aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="img/V1.1.6/v1.1.6 - hardware.PNG" class="d-block w-100 object-fit-cover" alt="Panel de Hardware">
+            <div class="carousel-caption d-none d-md-block glass-caption p-3 rounded-pill mb-4">
+              <h5 class="m-0">Panel de Hardware Completo</h5>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="img/V1.1.6/v1.1.6 - rendimiento.PNG" class="d-block w-100 object-fit-cover"
+              alt="Optimización de Rendimiento">
+            <div class="carousel-caption d-none d-md-block glass-caption p-3 rounded-pill mb-4">
+              <h5 class="m-0">Optimización de Rendimiento</h5>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="img/V1.1.6/v1.1.6 - almacenamiento.PNG" class="d-block w-100 object-fit-cover"
+              alt="Limpieza del Sistema">
+            <div class="carousel-caption d-none d-md-block glass-caption p-3 rounded-pill mb-4">
+              <h5 class="m-0">Análisis de Almacenamiento</h5>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#screenshotsCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Anterior</span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="#features">Características</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#ai-edition">AI-Edition</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#download">Descarga</a>
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                href="https://github.com/WilmerWass/WassControlSys"
-                target="_blank"
-                ><i class="bi bi-github"></i> GitHub</a
-              >
-            </li>
-          </ul>
+        <button class="carousel-control-next" type="button" data-bs-target="#screenshotsCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Siguiente</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- What's New Section (Redesigned) -->
+    <section id="whats-new" class="py-5">
+      <h2 class="mb-4 display-6 fw-bold border-start border-4 border-primary ps-3">Novedades y Actualizaciones</h2>
+      <div class="row g-4">
+        <!-- Version Navigation -->
+        <div class="col-md-3">
+          <div class="list-group list-group-flush border-start border-secondary border-opacity-25 ps-2"
+            id="release-versions">
+            <a href="pages/v1.1.6.html"
+              class="list-group-item list-group-item-action active bg-transparent border-0 py-3" aria-current="true">
+              <div class="d-flex w-100 justify-content-between align-items-center">
+                <span class="fw-bold">v1.1.6</span>
+                <span class="badge bg-success rounded-pill">Actual</span>
+              </div>
+              <small class="opacity-75">Última versión estable.</small>
+            </a>
+            <a href="pages/v1.1.5.html" class="list-group-item list-group-item-action bg-transparent border-0 py-3">
+              <span class="fw-normal">v1.1.5</span>
+            </a>
+            <a href="pages/v1.1.4.html" class="list-group-item list-group-item-action bg-transparent border-0 py-3">
+              <span class="fw-normal">v1.1.4</span>
+            </a>
+          </div>
+        </div>
+        <!-- Release Content -->
+        <div class="col-md-9">
+          <div id="release-content"
+            class="bg-dark-subtle p-4 rounded-4 shadow-sm h-100 border border-secondary border-opacity-10">
+            <!-- El contenido de la versión se cargará aquí -->
+            <div class="d-flex justify-content-center align-items-center h-100">
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Cargando...</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </nav>
+    </section>
 
-    <!-- Hero Section -->
-    <header class="hero-section text-center text-white d-flex align-items-center justify-content-center">
-  <div class="container">
-    <h1 class="display-4 fw-bold">Toma el Control Total de tu Sistema</h1>
-    <p class="lead my-4">
-      WassControlSys: Creado por necesidad, mantenido por pasión <br>
-      La herramienta definitiva para monitorear, limpiar y optimizar tu PC.
-    </p>
-    
-    <!-- lista uno al lado del otro -->
-    <ul class="lead mb-4 list-inline list-unstyled">
-      <li class="list-inline-item mx-3">✔ Sin instaladores basura</li>
-      <li class="list-inline-item mx-3">✔ Máxima transparencia</li>
-      <li class="list-inline-item mx-3">✔ Gratis y Código Abierto</li>
-      <li class="list-inline-item mx-3">✔ Bajo consumo & Maximo rendimiento</li>
-      <li class="list-inline-item mx-3">✔ Interfaz Intuitiva</li>
-      <li class="list-inline-item mx-3">✔ Privacidad total 100% Offline</li>
-    </ul>
-
-    <a href="#download" class="btn btn-primary btn-lg">Descargar Última Versión</a>
-    <a href="#features" class="btn btn-outline-light btn-lg">Conocer Más</a>
-  </div>
-</header>
-    <main class="container my-5">
-      <!-- Features Section -->
-      <section id="features" class="py-5">
-        <h2 class="text-center mb-5">Funcionalidades Principales (Core)</h2>
-        <div class="row text-center">
-          <div class="col-md-4 mb-4 feature-card">
-            <div class="card h-100">
-              <div class="card-body">
-                <i class="bi bi-cpu-fill display-3 text-primary"></i>
-                <h3 class="card-title mt-3">Diagnóstico de Hardware</h3>
-                <p class="card-text">
-                  Obtén información detallada de tu CPU, GPU, RAM, discos y más,
-                  todo en un solo lugar.
-                </p>
-                <img src="img/V1.1.5/hardware_V1.1.5.png" alt="Diagnóstico de Hardware" class="img-fluid rounded mt-3">
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 mb-4 feature-card">
-            <div class="card h-100">
-              <div class="card-body">
-                <i class="bi bi-trash2-fill display-3 text-primary"></i>
-                <h3 class="card-title mt-3">Limpieza y Mantenimiento</h3>
-                <p class="card-text">
-                  Elimina archivos basura, limpia la caché y ejecuta
-                  herramientas de mantenimiento del sistema con un solo clic.
-                </p>
-                <img src="img/V1.1.5/mantenimiento_V1.1.5.png" alt="Limpieza y Mantenimiento" class="img-fluid rounded mt-3">
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 mb-4 feature-card">
-            <div class="card h-100">
-              <div class="card-body">
-                <i class="bi bi-toggles display-3 text-primary"></i>
-                <h3 class="card-title mt-3">Optimización Avanzada</h3>
-                <p class="card-text">
-                  Gestiona procesos, optimiza servicios de Windows y controla
-                  las aplicaciones que inician con tu sistema.
-                </p>
-                <img src="img/V1.1.5/rendimiento_V1.1.5.png" alt="Optimización Avanzada" class="img-fluid rounded mt-3">
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- What's New Section -->
-      <section id="whats-new" class="py-5">
-        <h2 class="text-center mb-5">Novedades</h2>
-        <div class="row">
-          <!-- Version Navigation -->
-          <div class="col-md-3">
-            <div class="list-group" id="release-versions">
-              <a href="pages/v1.1.6.html" class="list-group-item list-group-item-action active" aria-current="true">
-                Versión 1.1.6 (Actual)
-              </a>
-              <a href="pages/v1.1.5.html" class="list-group-item list-group-item-action">
-                Versión 1.1.5
-              </a>
-              <a href="pages/v1.1.4.html" class="list-group-item list-group-item-action">
-                Versión 1.1.4
-              </a>
-              <a href="pages/v1.1.3.html" class="list-group-item list-group-item-action">
-                Versión 1.1.3
-              </a>
-              <a href="pages/v1.1.2.html" class="list-group-item list-group-item-action">
-                Versión 1.1.2
-              </a>
-              <a href="pages/v1.1.1.html" class="list-group-item list-group-item-action">
-                Versión 1.1.1
-              </a>
-            </div>
-             <p class="text-muted small mt-2">Selecciona una versión para ver sus novedades.</p>
-          </div>
-          <!-- Release Content -->
-          <div class="col-md-9">
-            <div id="release-content">
-              <!-- El contenido de la versión se cargará aquí -->
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- AI-Edition Section -->
-      <section id="ai-edition" class="py-5 bg-dark-subtle rounded-4">
-        <div class="container-fluid text-center">
-          <h2 class="mb-4">Próximamente: WassControlSys AI-Edition</h2>
-          <p class="lead mb-5">
-            Una capa de inteligencia que trabaja para ti. Desbloqueable mediante
-            una pequeña donación.
-          </p>
-          <div class="row">
-            <div class="col-lg-4 mb-4">
-              <h4>
-                <i class="bi bi-motherboard-fill text-primary"></i> Asistente de
-                Upgrades
-              </h4>
-              <p>
-                La IA te dirá qué CPU, RAM o SSD es compatible y te dará el
-                mayor salto de rendimiento por tu dinero.
-              </p>
-            </div>
-            <div class="col-lg-4 mb-4">
-              <h4>
-                <i class="bi bi-activity text-primary"></i> Predictor de Fallos
-              </h4>
-              <p>
-                Analiza la salud de tus componentes y te advierte de posibles
-                fallos antes de que sea tarde.
-              </p>
-            </div>
-            <div class="col-lg-4 mb-4">
-              <h4>
-                <i class="bi bi-chat-left-text-fill text-primary"></i> Chat
-                Técnico Offline
-              </h4>
-              <p>
-                Resuelve dudas y problemas de Windows sin necesidad de buscar en
-                internet. Tu PC tiene las respuestas.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Download Section -->
-      <section id="download" class="py-5 text-center">
-        <h2 class="mb-4">Descarga WassControlSys</h2>
-        <p class="lead">
-          Elige la versión que mejor se adapte a ti. ¡Gratis y de código
-          abierto!
+    <!-- AI-Edition Section -->
+    <section id="ai-edition" class="py-5 my-5 position-relative rounded-5 overflow-hidden">
+      <div class="position-absolute top-0 start-0 w-100 h-100 bg-gradient-ai opacity-25" style="z-index: -1;"></div>
+      <div class="container text-center py-4">
+        <span class="badge bg-info text-dark mb-3">Futuro</span>
+        <h2 class="mb-4 display-5 fw-bold text-white">WassControlSys <span class="text-gradient-ai">AI-Edition</span>
+        </h2>
+        <p class="lead mb-5 text-secondary-light mx-auto" style="max-width: 600px;">
+          Una capa de inteligencia artificial diseñada para predecir, asistir y optimizar.
+          La evolución del mantenimiento de PC.
         </p>
-
-        <div class="d-grid gap-2 col-md-6 mx-auto mb-4">
-          <a
-            href="https://github.com/WilmerWass/WassControlSys/releases/download/v1.1.6/WassControlSys_v1.1.6_SelfContained.zip"
-            class="btn btn-primary btn-lg"
-          >
-            <i class="bi bi-box-seam-fill"></i> Descarga Directa (Autocontenida)
-          </a>
-          <p class="text-body-secondary small mb-0">
-            Ideal para todos los usuarios. Incluye todo lo necesario para
-            funcionar, no requiere instalación adicional de .NET.
-          </p>
-          <a
-            href="https://github.com/WilmerWass/WassControlSys/releases/download/v1.1.6/WassControlSys_v1.1.6_Normal.zip"
-            class="btn btn-outline-primary btn-lg mt-2"
-          >
-            <i class="bi bi-download"></i> Descarga Directa (Requiere .NET 8.0)
-          </a>
-          <p class="text-body-secondary small">
-            Versión más ligera. Requiere tener el .NET 8.0 Desktop Runtime
-            instalado previamente.
-          </p>
+        <div class="row g-4">
+          <div class="col-lg-4">
+            <div
+              class="p-4 rounded-4 bg-black bg-opacity-25 h-100 border border-white border-opacity-10 backdrop-blur-sm">
+              <i class="bi bi-motherboard-fill display-4 text-info mb-3"></i>
+              <h4 class="fw-bold text-white">Upgrade Advisor</h4>
+              <p class="text-secondary-light text-sm">Recomendaciones de hardware IA basadas en precios y
+                compatibilidad.</p>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div
+              class="p-4 rounded-4 bg-black bg-opacity-25 h-100 border border-white border-opacity-10 backdrop-blur-sm">
+              <i class="bi bi-activity display-4 text-info mb-3"></i>
+              <h4 class="fw-bold text-white">Smart Predict</h4>
+              <p class="text-secondary-light text-sm">Detección temprana de fallos en componentes mediante análisis de
+                patrones.</p>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div
+              class="p-4 rounded-4 bg-black bg-opacity-25 h-100 border border-white border-opacity-10 backdrop-blur-sm">
+              <i class="bi bi-robot display-4 text-info mb-3"></i>
+              <h4 class="fw-bold text-white">Offline TechBot</h4>
+              <p class="text-secondary-light text-sm">Asistente técnico local. Respuestas a tus problemas sin internet.
+              </p>
+            </div>
+          </div>
         </div>
+      </div>
+    </section>
 
-        <p class="mt-4">
-          ¿Quieres explorar el código, ver otras versiones o contribuir?
-        </p>
-                  <a
-                    href="https://github.com/WilmerWass/WassControlSys"
-                    class="btn btn-outline-secondary btn-lg"
-                    target="_blank"
-                  >
-                    <i class="bi bi-github"></i> Ir al Repositorio en GitHub
-                  </a>
-        
-                  <div class="mt-3">
-                    <p class="text-body-secondary small mb-1">O descarga el código fuente directamente:</p>
-                    <a href="https://github.com/WilmerWass/WassControlSys/archive/refs/tags/v1.1.6.zip" class="text-body-secondary small me-3">Código Fuente (.zip)</a>
-                    <a href="https://github.WilmerWass/WassControlSys/archive/refs/tags/v1.1.6.tar.gz" class="text-body-secondary small">Código Fuente (.tar.gz)</a>
-                  </div>
-        <p class="mt-3 text-body-secondary">Versión 1.1.6 (Estable)</p>
-      </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-dark text-white text-center py-4">
+    <!-- Roadmap Section -->
+    <section id="roadmap" class="py-5">
       <div class="container">
-        <img src="img/logo_WCS.svg" alt="Logo" width="40" height="40" class="mb-3">
-        <p>
-          &copy; 2025 WassControlSys. Creado con
-          <i class="bi bi-heart-fill" style="color: #ff4d4d"></i> por
-          WilmerWass.
-        </p>
-        <a
-          href="https://github.com/WilmerWass/WassControlSys"
-          class="text-white text-decoration-none"
-          target="_blank"
-        >
-          <i class="bi bi-github"></i> Ver el Proyecto en GitHub
+        <div class="text-center mb-5">
+          <h6 class="text-primary text-uppercase letter-spacing-2">El Camino</h6>
+          <h2 class="display-5 fw-bold">Hoja de Ruta</h2>
+        </div>
+        <div class="position-relative roadmap-container">
+          <!-- Timeline Line -->
+          <div class="timeline-line"></div>
+
+          <!-- Items loop... using existing structure but improved CSS classes will handle the look -->
+
+          <!-- v1.1.7 Item -->
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content card border-0 shadow-sm glass-card">
+              <div class="card-body">
+                <span class="badge bg-primary mb-2">v1.1.7</span>
+                <h4 class="card-title h5 fw-bold">
+                  Editor de Modos
+                </h4>
+                <p class="card-text small text-muted">Personalización total de perfiles de energía y rendimiento.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- v1.1.8 Item -->
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content card border-0 shadow-sm glass-card">
+              <div class="card-body">
+                <span class="badge bg-primary mb-2">v1.1.8</span>
+                <h4 class="card-title h5 fw-bold">
+                  Asistente de Bienvenida
+                </h4>
+                <p class="card-text small text-muted">Onboarding interactivo para configuración inicial rápida.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- v1.1.9 Item -->
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content card border-0 shadow-sm glass-card">
+              <div class="card-body">
+                <span class="badge bg-primary mb-2">v1.1.9</span>
+                <h4 class="card-title h5 fw-bold">
+                  Sugestiones Smart
+                </h4>
+                <p class="card-text small text-muted">Motor proactivo de recomendaciones de optimización.</p>
+              </div>
+            </div>
+          </div>
+          <!-- v1.1.10 Item -->
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content card border-0 shadow-sm glass-card">
+              <div class="card-body">
+                <span class="badge bg-primary mb-2">v1.1.10</span>
+                <h4 class="card-title h5 fw-bold">
+                  Guardián del Sistema
+                </h4>
+                <p class="card-text small text-muted">Gestión avanzada de estabilidad y puntos de restauración.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section (New) -->
+    <section id="faq" class="py-5">
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 class="display-6 fw-bold">Preguntas Frecuentes</h2>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="accordion accordion-flush" id="faqAccordion">
+              <div class="accordion-item bg-transparent border-bottom border-secondary border-opacity-25">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed bg-transparent shadow-none" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#faq1">
+                    ¿Es WassControlSys realmente gratuito?
+                  </button>
+                </h2>
+                <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body text-muted">
+                    Sí, es 100% gratuito y de código abierto. Puedes usarlo sin restricciones y revisar el código en
+                    GitHub.
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item bg-transparent border-bottom border-secondary border-opacity-25">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed bg-transparent shadow-none" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#faq2">
+                    ¿Necesito tener instalado .NET?
+                  </button>
+                </h2>
+                <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body text-muted">
+                    La versión "Autocontenida" NO requiere que instales nada extra. La versión "Normal" sí requiere .NET
+                    8.0 Desktop Runtime. Recomendamos la versión autocontenida para mayor facilidad.
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item bg-transparent">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed bg-transparent shadow-none" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#faq3">
+                    ¿Es seguro usar las herramientas de limpieza?
+                  </button>
+                </h2>
+                <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body text-muted">
+                    Absolutamente. WassControlSys utiliza comandos nativos de Windows y elimina solo archivos temporales
+                    y basura que no afectan el funcionamiento del sistema.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Download Section -->
+    <section id="download" class="py-5 text-center mt-4">
+      <div class="download-container p-5 rounded-5 bg-gradient-brand position-relative overflow-hidden">
+        <div class="position-absolute top-0 start-0 w-100 h-100 bg-pattern opacity-10"></div>
+        <div class="position-relative z-1">
+          <h2 class="mb-3 display-5 fw-bold text-white">Empieza a Optimizar Hoy</h2>
+          <p class="lead text-white opacity-75 mb-4">
+            Únete a los usuarios que ya tienen el control total de su PC.
+          </p>
+
+          <div class="d-flex justify-content-center gap-3 flex-wrap">
+            <a href="https://github.com/WilmerWass/WassControlSys/releases/download/v1.1.6/WassControlSys_v1.1.6_SelfContained.zip"
+              class="btn btn-light btn-lg rounded-pill px-4 fw-bold text-primary shadow-sm">
+              <i class="bi bi-box-seam-fill"></i> Descarga Portable (Recomendada)
+            </a>
+            <a href="https://github.com/WilmerWass/WassControlSys/releases/download/v1.1.6/WassControlSys_v1.1.6_Normal.zip"
+              class="btn btn-outline-light btn-lg rounded-pill px-4">
+              <i class="bi bi-file-earmark-zip"></i> Versión Ligera (.NET 8)
+            </a>
+          </div>
+
+          <div
+            class="mt-4 pt-4 border-top border-white border-opacity-10 d-flex justify-content-center gap-4 text-white opacity-75 small">
+            <span><i class="bi bi-check-circle-fill me-1"></i> Open Source</span>
+            <span><i class="bi bi-shield-check-fill me-1"></i> Sin Adware</span>
+            <span><i class="bi bi-windows me-1"></i> Windows 10/11</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact / Feedback Section (New) -->
+    <section id="contact" class="py-5 text-center">
+      <p class="mb-2 text-primary fw-bold">¿Tienes dudas o sugerencias?</p>
+      <h3 class="fw-bold mb-4">Estamos aquí para ayudar</h3>
+      <a href="mailto:contact@wasscontrolsys.com" class="btn btn-outline-secondary rounded-pill px-4">
+        Enviar Email
+      </a>
+      <a href="https://discord.gg/U8RdpqP3wS" target="_blank" class="btn btn-discord rounded-pill px-4 ms-2">
+        Ir a Discord
+      </a>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-darker border-top border-secondary border-opacity-25 text-white text-center py-5">
+    <div class="container">
+      <img src="img/logo_WCS.svg" alt="Logo" width="50" height="50" class="mb-3 opacity-75">
+      <p class="mb-3">
+        &copy; 2025 WassControlSys. Creado con
+        <i class="bi bi-heart-fill text-danger"></i> por
+        WilmerWass.
+      </p>
+      <div class="d-flex justify-content-center gap-3">
+        <a href="https://github.com/WilmerWass/WassControlSys"
+          class="text-white text-decoration-none opacity-75 hover-opacity-100" target="_blank">
+          <i class="bi bi-github fs-5"></i>
+        </a>
+        <a href="https://discord.gg/U8RdpqP3wS" class="text-white text-decoration-none opacity-75 hover-opacity-100"
+          target="_blank">
+          <i class="bi bi-discord fs-5"></i>
         </a>
       </div>
-    </footer>
+    </div>
+  </footer>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Custom JS -->
-    <script src="script.js"></script>
-  </body>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom JS -->
+  <script src="script.js"></script>
+</body>
+
 </html>
