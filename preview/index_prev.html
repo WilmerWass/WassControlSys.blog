@@ -1,0 +1,1735 @@
+﻿<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WPC-SutilBox Dashboard Pro</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter & JetBrains Mono -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            bg: '#0a0b0e',
+                            card: '#12141c',
+                            sidebar: '#0e1017',
+                            border: '#1f2430',
+                            input: '#161922'
+                        },
+                        brand: {
+                            purple: '#6366f1',
+                            blue: '#3b82f6',
+                            emerald: '#10b981',
+                            amber: '#f59e0b',
+                            rose: '#f43f5e'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+        <link rel="stylesheet" href="preview.css">
+</head>
+<body class="bg-dark-bg text-gray-200 font-sans antialiased h-screen overflow-hidden select-none flex flex-col"><script src="preview-disclosure.js"></script>
+
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <header class="h-9 bg-dark-sidebar border-b border-dark-border flex items-center justify-between px-3 shrink-0 text-xs text-gray-400">
+        <div class="flex items-center gap-2">
+            <i class="fa-solid fa-cube accent-text text-sm"></i>
+            <span class="font-bold text-gray-200 tracking-wide text-xs">WPC-SutilBox</span>
+            <span class="text-[10px] bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-1.5 py-0.5 rounded font-mono">v1.3 Pro</span>
+        </div>
+        <div class="flex items-center gap-4">
+            <div id="status-pill" class="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-[11px] font-medium">
+                <span class="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
+                <span>Preview activa</span>
+            </div>
+            <div class="flex items-center text-gray-400 border-l border-dark-border pl-3">
+                <button onclick="minimizeWindow()" class="px-2 py-1 hover:text-white transition"><i class="fa-solid fa-minus"></i></button>
+                <button onclick="toggleMaximizeWindow()" class="px-2 py-1 hover:text-white transition"><i class="fa-regular fa-square"></i></button>
+                <button onclick="closeWindow()" class="px-2 py-1 hover:bg-rose-600 hover:text-white transition rounded-sm"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="flex flex-1 overflow-hidden">
+
+        <aside class="w-60 bg-dark-sidebar border-r border-dark-border flex flex-col shrink-0 justify-between overflow-y-auto">
+            <div class="p-3 space-y-5">
+                
+                <!-- Section: Principal -->
+                <div>
+                    <div class="text-[10px] font-bold text-gray-500 tracking-wider uppercase px-3 mb-2">Principal</div>
+                    <nav class="space-y-1">
+                        <button onclick="switchTab('tab-inicio')" id="nav-tab-inicio" class="nav-btn active w-full flex items-center gap-3 px-3 py-2 rounded-xl font-medium text-xs text-white bg-indigo-600/20 border border-indigo-500/30 transition">
+                            <i class="fa-solid fa-house w-4 text-center accent-text"></i>
+                            <span>Inicio</span>
+                        </button>
+                    </nav>
+                </div>
+
+                <!-- Section: Sistema -->
+                <div>
+                    <div class="text-[10px] font-bold text-gray-500 tracking-wider uppercase px-3 mb-2">Sistema</div>
+                    <nav class="space-y-1">
+                        <button onclick="switchTab('tab-aplicaciones')" id="nav-tab-aplicaciones" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-xl font-medium text-xs text-gray-400 hover:text-gray-200 hover:bg-gray-800/40 transition">
+                            <i class="fa-solid fa-cubes w-4 text-center"></i>
+                            <span>Aplicaciones</span>
+                        </button>
+                        <button onclick="switchTab('tab-rendimiento')" id="nav-tab-rendimiento" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-xl font-medium text-xs text-gray-400 hover:text-gray-200 hover:bg-gray-800/40 transition">
+                            <i class="fa-solid fa-gauge-high w-4 text-center"></i>
+                            <span>Rendimiento</span>
+                        </button>
+                        <button onclick="switchTab('tab-updates')" id="nav-tab-updates" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-xl font-medium text-xs text-gray-400 hover:text-gray-200 hover:bg-gray-800/40 transition">
+                            <i class="fa-solid fa-arrows-rotate w-4 text-center"></i>
+                            <span>Windows Update</span>
+                        </button>
+                        <button onclick="switchTab('tab-reparacion')" id="nav-tab-reparacion" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-xl font-medium text-xs text-gray-400 hover:text-gray-200 hover:bg-gray-800/40 transition">
+                            <i class="fa-solid fa-wrench w-4 text-center"></i>
+                            <span>Reparación</span>
+                        </button>
+                    </nav>
+                </div>
+
+                <!-- Section: Seguridad -->
+                <div>
+                    <div class="text-[10px] font-bold text-gray-500 tracking-wider uppercase px-3 mb-2">Seguridad</div>
+                    <nav class="space-y-1">
+                        <button onclick="switchTab('tab-seguridad')" id="nav-tab-seguridad" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-xl font-medium text-xs text-gray-400 hover:text-gray-200 hover:bg-gray-800/40 transition">
+                            <i class="fa-solid fa-shield-halved w-4 text-center"></i>
+                            <span>Seguridad</span>
+                        </button>
+                        <button onclick="switchTab('tab-privacidad')" id="nav-tab-privacidad" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-xl font-medium text-xs text-gray-400 hover:text-gray-200 hover:bg-gray-800/40 transition">
+                            <i class="fa-solid fa-user-shield w-4 text-center"></i>
+                            <span>Privacidad</span>
+                        </button>
+                    </nav>
+                </div>
+
+                <!-- Section: Herramientas -->
+                <div>
+                    <div class="text-[10px] font-bold text-gray-500 tracking-wider uppercase px-3 mb-2">Herramientas</div>
+                    <nav class="space-y-1">
+                        <button onclick="switchTab('tab-drivers')" id="nav-tab-drivers" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-xl font-medium text-xs text-gray-400 hover:text-gray-200 hover:bg-gray-800/40 transition">
+                            <i class="fa-solid fa-puzzle-piece w-4 text-center"></i>
+                            <span>Drivers</span>
+                        </button>
+                        <button onclick="switchTab('tab-red')" id="nav-tab-red" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-xl font-medium text-xs text-gray-400 hover:text-gray-200 hover:bg-gray-800/40 transition">
+                            <i class="fa-solid fa-network-wired w-4 text-center"></i>
+                            <span>Red</span>
+                        </button>
+                        <button onclick="switchTab('tab-herramientas-ext')" id="nav-tab-herramientas-ext" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-xl font-medium text-xs text-gray-400 hover:text-gray-200 hover:bg-gray-800/40 transition">
+                            <i class="fa-solid fa-toolbox w-4 text-center"></i>
+                            <span>Herramientas</span>
+                        </button>
+                        <button onclick="switchTab('tab-historial')" id="nav-tab-historial" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-xl font-medium text-xs text-gray-400 hover:text-gray-200 hover:bg-gray-800/40 transition">
+                            <i class="fa-solid fa-clock-rotate-left w-4 text-center"></i>
+                            <span>Historial & Logs</span>
+                        </button>
+                    </nav>
+                </div>
+
+                <!-- Section: Configuración -->
+                <div>
+                    <div class="text-[10px] font-bold text-gray-500 tracking-wider uppercase px-3 mb-2">Configuración</div>
+                    <nav class="space-y-1">
+                        <button onclick="switchTab('tab-configuracion')" id="nav-tab-configuracion" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-xl font-medium text-xs text-gray-400 hover:text-gray-200 hover:bg-gray-800/40 transition">
+                            <i class="fa-solid fa-gear w-4 text-center"></i>
+                            <span>Configuración</span>
+                        </button>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Sidebar Footer Info -->
+            <div class="p-3 border-t border-dark-border bg-dark-bg/40">
+                <div class="p-2.5 rounded-xl bg-gray-900/80 border border-gray-800 flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <div class="w-7 h-7 rounded-lg accent-bg flex items-center justify-center text-white text-xs font-bold">
+                            <i class="fa-solid fa-microchip"></i>
+                        </div>
+                        <div>
+                            <div class="text-[11px] font-bold text-white leading-tight">WPC SutilBox</div>
+                            <div class="text-[9px] text-gray-500">Versión 1.3 Pro</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="flex-1 overflow-y-auto p-6 bg-dark-bg space-y-6">
+
+            <!-- BREADCRUMB / TOP HEADER -->
+            <div class="flex items-center justify-between pb-2 border-b border-gray-800/60 text-xs text-gray-400">
+                <div class="flex items-center gap-2">
+                    <span class="text-gray-500">WPC-SutilBox</span>
+                    <span>/</span>
+                    <span id="current-breadcrumb" class="text-white font-semibold">Inicio</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="preview-simulation-badge"><i class="fa-solid fa-flask mr-1"></i>Preview · datos simulados</span>
+                    <button onclick="quickRestorePoint()" class="px-3 py-1 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-200 font-medium text-[11px] transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-rotate-left text-indigo-400"></i>
+                        <span>Punto de Restauración</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- VIEW 1: INICIO (CENTRO DE CONTROL) -->
+            <div id="tab-inicio" class="tab-content space-y-6">
+                <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
+                    <section class="xl:col-span-2 glass-panel p-5 rounded-2xl border border-gray-800 border-b-2 border-b-indigo-500">
+                        <div class="flex flex-col md:flex-row justify-between gap-6">
+                            <div class="space-y-3">
+                                <h2 class="text-xl font-extrabold text-white">Comprobación de Salud y Optimización</h2>
+                                <p class="preview-inline-note"><i class="fa-solid fa-circle-info mr-1"></i>Vista previa: analiza y simula recomendaciones; no aplica cambios en Windows.</p>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-gray-300">
+                                    <div><i class="fa-solid fa-check text-indigo-400 mr-2"></i>Revisar SysMain (Carga de Apps)</div>
+                                    <div><i class="fa-solid fa-check text-indigo-400 mr-2"></i>Revisar Windows Search</div>
+                                    <div><i class="fa-solid fa-check text-indigo-400 mr-2"></i>Desactivar efectos visuales</div>
+                                    <div><i class="fa-solid fa-check text-indigo-400 mr-2"></i>Revisar Windows Update</div>
+                                </div>
+                            </div>
+                            <div class="min-w-[230px] flex flex-col gap-4">
+                                <button onclick="startOptimization()" class="w-full py-3 rounded-xl accent-bg accent-glow text-white font-bold text-sm"><i class="fa-solid fa-wand-magic-sparkles mr-2"></i>Analizar y optimizar</button>
+                                <div class="grid grid-cols-3 gap-3 text-center text-[10px]">
+                                    <div><i class="fa-solid fa-broom text-rose-400 text-xl"></i><strong class="block text-white text-xs">Limpieza</strong><span class="text-gray-500">Por revisar</span></div>
+                                    <div><i class="fa-solid fa-shield-halved text-emerald-400 text-xl"></i><strong class="block text-white text-xs">Seguridad</strong><span class="text-gray-500">Estado demo</span></div>
+                                    <div><i class="fa-solid fa-circle-check text-emerald-400 text-xl"></i><strong class="block text-white text-xs">Inicio</strong><span class="text-gray-500">No verificado</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="glass-panel p-5 rounded-2xl border border-gray-800">
+                        <h2 class="text-sm font-bold text-white mb-4">Monitoreo Global</h2>
+                        <div class="grid grid-cols-3 gap-2 text-center">
+                            <div class="monitor-ring ring-blue"><strong>50%</strong><span>CPU</span></div>
+                            <div class="monitor-ring ring-purple"><strong>~95%</strong><span>RAM</span></div>
+                            <div class="monitor-ring ring-amber"><strong>61°C</strong><span>TEMP</span></div>
+                        </div>
+                        <div class="mt-4"><div class="flex justify-between text-[10px] text-gray-400"><span>Temperatura CPU</span><strong>61°C</strong></div><div class="metric-track"><span style="width:62%"></span></div><div class="flex justify-between text-[10px] text-gray-400 mt-3"><span>Batería</span><strong class="text-emerald-400">79%</strong></div><div class="metric-track green"><span style="width:79%"></span></div></div>
+                    </section>
+                </div>
+
+                <section>
+                    <h3 class="text-lg font-bold text-white mb-3">Modo de Rendimiento</h3>
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                        <button onclick="switchTab('tab-rendimiento')" class="mode-card selected"><i class="fa-solid fa-chess-king"></i><strong>Equilibrado</strong><small>Equilibrio automático de rendimiento.</small></button>
+                        <button onclick="switchTab('tab-rendimiento')" class="mode-card"><i class="fa-solid fa-gamepad"></i><strong>Gaming</strong><small>Prioriza la experiencia de juego.</small></button>
+                        <button onclick="switchTab('tab-rendimiento')" class="mode-card"><i class="fa-solid fa-chart-column"></i><strong>Productividad</strong><small>Optimiza multitarea y editores.</small></button>
+                        <button onclick="switchTab('tab-rendimiento')" class="mode-card"><i class="fa-solid fa-gear"></i><strong>Desarrollo</strong><small>Favorece compiladores y contenedores.</small></button>
+                    </div>
+                </section>
+
+                <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
+                    <section class="xl:col-span-2 glass-panel p-5 rounded-2xl border border-gray-800">
+                        <h3 class="text-lg font-bold text-white mb-4">Personalización Avanzada</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs"><div><div class="flex justify-between"><strong>Gaming</strong><span class="status-led"></span></div><input class="range-accent" type="range" value="100"><div class="flex justify-between mt-3"><span>Servicios</span><input type="checkbox" checked class="accent-indigo-600"></div></div><div><div class="flex justify-between"><strong>Optimización Directa</strong><span class="status-led"></span></div><input class="range-accent" type="range" value="70"><div class="flex justify-between mt-3"><span>Optimizar</span><input type="checkbox" class="accent-indigo-600"></div></div></div>
+                    </section>
+                    <section class="glass-panel p-5 rounded-2xl border border-gray-800"><h3 class="text-lg font-bold text-white mb-3">Gestor de Tareas y Servicios</h3><p class="text-[11px] text-gray-400 mb-3">Apps y servicios de alto impacto</p><div class="space-y-3 text-xs"><div class="flex justify-between"><span>SecurityHealth</span><span class="text-emerald-400">●</span></div><div class="flex justify-between"><span>GoogleDriveFS</span><span class="text-blue-400">●</span></div><div class="flex justify-between"><span>MicrosoftEdgeAutoLaunch</span><span class="text-amber-400">●</span></div></div><button onclick="switchTab('tab-rendimiento')" class="w-full mt-4 py-2 rounded-lg bg-gray-800 text-xs text-white">Refrescar Lista</button></section>
+                </div>
+
+                <section class="glass-panel p-5 rounded-2xl border border-gray-800"><h3 class="text-lg font-bold text-white mb-3">Acciones Rápidas</h3><div class="grid grid-cols-1 sm:grid-cols-2 gap-3"><button onclick="cleanRAM()" class="quick-action">Limpiar RAM</button><button onclick="quickRestorePoint()" class="quick-action accent-bg">Punto de Restauración</button></div></section>
+                <!-- Acciones principales adicionales -->
+                <div class="hidden">
+                        <button onclick="switchTab('tab-revisar')" class="p-5 rounded-xl glass-panel border border-gray-800 hover:border-indigo-500 transition text-left space-y-2 group">
+                            <div class="w-10 h-10 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold text-base group-hover:scale-110 transition">
+                                <i class="fa-solid fa-laptop-medical"></i>
+                            </div>
+                            <div class="font-bold text-xs text-white">Revisar mi PC</div>
+                            <div class="text-[10px] text-gray-400">Diagnóstico integral de salud, almacenamiento y hardware.</div>
+                        </button>
+                        <button onclick="startOptimization()" class="p-5 rounded-xl glass-panel border border-gray-800 hover:border-emerald-500 transition text-left space-y-2 group">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-base group-hover:scale-110 transition">
+                                <i class="fa-solid fa-bolt"></i>
+                            </div>
+                            <div class="font-bold text-xs text-white">Optimizar</div>
+                            <div class="text-[10px] text-gray-400">Ajuste instantáneo de memoria y servicios en segundo plano.</div>
+                        </button>
+                        <button onclick="switchTab('tab-liberar')" class="p-5 rounded-xl glass-panel border border-gray-800 hover:border-blue-500 transition text-left space-y-2 group">
+                            <div class="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold text-base group-hover:scale-110 transition">
+                                <i class="fa-solid fa-broom"></i>
+                            </div>
+                            <div class="font-bold text-xs text-white">Liberar espacio</div>
+                            <div class="text-[10px] text-gray-400">Eliminación segura de temporales, caché y archivos basura.</div>
+                        </button>
+                        <button onclick="switchTab('tab-rendimiento')" class="p-5 rounded-xl glass-panel border border-gray-800 hover:border-amber-500 transition text-left space-y-2 group">
+                            <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-base group-hover:scale-110 transition">
+                                <i class="fa-solid fa-gauge-high"></i>
+                            </div>
+                            <div class="font-bold text-xs text-white">Rendimiento</div>
+                            <div class="text-[10px] text-gray-400">Monitoreo de CPU, RAM, temperatura y perfiles de energía.</div>
+                        </button>
+                    </div>
+                </div>
+
+            <!-- VIEW 2: REVISAR MI PC -->
+            <div id="tab-revisar" class="tab-content hidden space-y-6">
+                <div>
+                    <h1 class="text-2xl font-extrabold text-white flex items-center gap-3">
+                        <i class="fa-solid fa-laptop-medical text-indigo-400"></i> Diagnóstico Integral del Sistema
+                    </h1>
+                    <p class="text-xs text-gray-400 mt-1">Resumen unificado de salud, espacio de almacenamiento, sensores de hardware y procesos.</p>
+                </div>
+                <div class="glass-panel p-6 rounded-2xl border border-gray-800 space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-4 bg-dark-card rounded-xl border border-gray-800 space-y-2">
+                            <div class="flex items-center justify-between text-xs font-bold text-white">
+                                <span><i class="fa-solid fa-heart-pulse text-rose-500 mr-2"></i>Salud General del Sistema</span>
+                                <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px]">Excelente (96%)</span>
+                            </div>
+                            <p class="text-xs text-gray-400">Sin anomalías críticas detectadas en el registro del sistema.</p>
+                        </div>
+                        <div class="p-4 bg-dark-card rounded-xl border border-gray-800 space-y-2">
+                            <div class="flex items-center justify-between text-xs font-bold text-white">
+                                <span><i class="fa-solid fa-hard-drive text-blue-500 mr-2"></i>Unidad NVMe SSD (C:)</span>
+                                <span class="px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20 text-[10px]">482 GB Libres / 1 TB</span>
+                            </div>
+                            <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
+                                <div class="accent-bg h-full w-[52%]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 3: LIBERAR ESPACIO -->
+            <div id="tab-liberar" class="tab-content hidden space-y-6">
+                <div>
+                    <h1 class="text-2xl font-extrabold text-white flex items-center gap-3">
+                        <i class="fa-solid fa-broom text-emerald-400"></i> Liberar Espacio en Disco
+                    </h1>
+                    <p class="text-xs text-gray-400 mt-1">Eliminación segura de temporales y caché del sistema.</p>
+                </div>
+                <div class="glass-panel p-6 rounded-2xl border border-gray-800 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="text-xs font-bold text-white">Archivos Temporales y Caché</div>
+                            <div class="text-[11px] text-gray-400">Ubicación: %temp%</div>
+                        </div>
+                        <button onclick="cleanDiskCategory('temp')" class="px-4 py-2 rounded-xl accent-bg text-white font-bold text-xs">Limpiar (1.8 GB)</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 4: APLICACIONES -->
+            <div id="tab-aplicaciones" class="tab-content hidden space-y-6">
+                <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                    <div>
+                        <h1 class="text-2xl font-extrabold text-white flex items-center gap-3">
+                            <i class="fa-solid fa-cubes text-indigo-400"></i> Gestor Avanzado de Aplicaciones
+                        </h1>
+                        <p class="text-xs text-gray-400 mt-1">Desinstala programas pesados, administra aplicaciones al inicio de Windows e instala software esencial en lote mediante Winget.</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="openInstallModal()" class="px-4 py-2 rounded-xl accent-bg text-white font-bold text-xs flex items-center gap-2 hover:opacity-95 transition">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>Instalar Software (Winget)</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2 border-b border-gray-800 pb-3 text-xs">
+                    <button onclick="switchAppSubTab('installed')" id="app-subtab-installed" class="px-3.5 py-1.5 rounded-lg bg-indigo-600/20 border border-indigo-500/30 text-white font-semibold transition">Instaladas en el Equipo (18)</button>
+                    <button onclick="switchAppSubTab('startup')" id="app-subtab-startup" class="px-3.5 py-1.5 rounded-lg bg-gray-900 text-gray-400 hover:text-white hover:bg-gray-800 transition">Aplicaciones de Inicio (6)</button>
+                    <button onclick="switchAppSubTab('bloatware')" id="app-subtab-bloatware" class="px-3.5 py-1.5 rounded-lg bg-gray-900 text-gray-400 hover:text-white hover:bg-gray-800 transition">Crapware / Bloatware Sugerido (4)</button>
+                </div>
+
+                <div class="glass-panel p-4 rounded-2xl border border-gray-800 flex flex-col md:flex-row items-center justify-between gap-4">
+                    <div class="relative w-full md:w-80">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-gray-500 text-xs"></i>
+                        <input type="text" id="app-search-input" oninput="filterAppsList(this.value)" placeholder="Buscar aplicación o editor..." class="w-full pl-9 pr-3 py-2 rounded-xl bg-dark-input border border-gray-800 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500">
+                    </div>
+                    <div class="flex items-center gap-2 w-full md:w-auto justify-end">
+                        <span id="selected-apps-count" class="text-[11px] text-gray-400 font-mono hidden">0 seleccionadas</span>
+                        <button onclick="bulkUninstallApps()" id="btn-bulk-uninstall" class="hidden px-3 py-1.5 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 font-semibold text-xs transition hover:bg-rose-500/20">
+                            Desinstalar Seleccionadas (Silencioso)
+                        </button>
+                        <button onclick="exportAppsInventory()" class="px-3 py-1.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-white font-medium text-xs transition flex items-center gap-1.5">
+                            <i class="fa-solid fa-file-excel text-emerald-400"></i>
+                            <span>Exportar Listado</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="glass-panel rounded-2xl border border-gray-800 overflow-hidden">
+                    <div class="p-3 border-b border-gray-800 bg-gray-900/50 grid grid-cols-12 text-xs font-bold text-gray-400 items-center">
+                        <div class="col-span-6 flex items-center gap-3 pl-2">
+                            <input type="checkbox" onchange="toggleSelectAllApps(this)" class="accent-indigo-600 rounded w-4 h-4 cursor-pointer">
+                            <span>Aplicación y Desarrollador</span>
+                        </div>
+                        <div class="col-span-2 text-center">Tamaño</div>
+                        <div class="col-span-2 text-center">Versión</div>
+                        <div class="col-span-2 text-right pr-4">Acción</div>
+                    </div>
+                    <div id="apps-list-container" class="divide-y divide-gray-800/60 text-xs max-h-[460px] overflow-y-auto"></div>
+                </div>
+            </div>
+
+            <!-- VIEW 5: RENDIMIENTO -->
+            <div id="tab-rendimiento" class="tab-content hidden space-y-6">
+                <div>
+                    <h1 class="text-2xl font-extrabold text-white flex items-center gap-3">
+                        <i class="fa-solid fa-gauge-high text-amber-400"></i> Centro de Rendimiento Avanzado
+                    </h1>
+                    <p class="text-xs text-gray-400 mt-1">Monitoreo en tiempo real de CPU, RAM, temperatura, consumo, gestión de procesos y perfiles de energía.</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div class="glass-panel p-5 rounded-2xl border border-gray-800 space-y-2">
+                        <div class="text-xs text-gray-400 font-semibold uppercase flex items-center justify-between">
+                            <span>Uso de CPU</span>
+                            <i class="fa-solid fa-microchip text-indigo-400"></i>
+                        </div>
+                        <div class="text-2xl font-extrabold text-indigo-400">38%</div>
+                        <div class="text-[10px] text-gray-500">Intel Core i7-13700H @ 3.40GHz</div>
+                    </div>
+
+                    <div class="glass-panel p-5 rounded-2xl border border-gray-800 space-y-2">
+                        <div class="text-xs text-gray-400 font-semibold uppercase flex items-center justify-between">
+                            <span>Memoria RAM</span>
+                            <i class="fa-solid fa-memory text-emerald-400"></i>
+                        </div>
+                        <div class="text-2xl font-extrabold text-emerald-400">6.4 GB / 16 GB</div>
+                        <div class="text-[10px] text-gray-500">40% en uso (DDR5 5600MHz)</div>
+                    </div>
+
+                    <div class="glass-panel p-5 rounded-2xl border border-gray-800 space-y-2">
+                        <div class="text-xs text-gray-400 font-semibold uppercase flex items-center justify-between">
+                            <span>Temperatura del Sistema</span>
+                            <i class="fa-solid fa-temperature-half text-amber-400"></i>
+                        </div>
+                        <div class="text-2xl font-extrabold text-amber-400">52°C</div>
+                        <div class="text-[10px] text-emerald-400 font-medium">Umbral seguro (&lt;80°C)</div>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-5 rounded-2xl border border-gray-800 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div class="text-xs font-bold text-white">Perfiles de Energía de Windows</div>
+                        <span class="text-[10px] text-indigo-400 font-mono">Modo Activo: Máximo Rendimiento</span>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <button onclick="setPowerPlan('eco')" class="p-3 rounded-xl bg-dark-card border border-gray-800 hover:border-emerald-500 transition text-left space-y-1">
+                            <div class="font-bold text-xs text-white flex items-center gap-2"><i class="fa-solid fa-leaf text-emerald-400"></i> Ahorro de Energía</div>
+                            <div class="text-[10px] text-gray-400">Reduce frecuencia de CPU y brillo.</div>
+                        </button>
+                        <button onclick="setPowerPlan('balanced')" class="p-3 rounded-xl bg-dark-card border border-gray-800 hover:border-blue-500 transition text-left space-y-1">
+                            <div class="font-bold text-xs text-white flex items-center gap-2"><i class="fa-solid fa-scale-balanced text-blue-400"></i> Equilibrado</div>
+                            <div class="text-[10px] text-gray-400">Recomendado para uso diario.</div>
+                        </button>
+                        <button onclick="setPowerPlan('performance')" class="p-3 rounded-xl bg-dark-card border border-indigo-500/50 bg-indigo-600/10 transition text-left space-y-1">
+                            <div class="font-bold text-xs text-white flex items-center gap-2"><i class="fa-solid fa-bolt text-amber-400"></i> Máximo Rendimiento</div>
+                            <div class="text-[10px] text-gray-400">Potencia completa para juegos y apps.</div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 6: SEGURIDAD -->
+            <div id="tab-seguridad" class="tab-content hidden space-y-6">
+                <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                    <div>
+                        <h1 class="text-2xl font-extrabold text-white flex items-center gap-3">
+                            <i class="fa-solid fa-shield-halved text-emerald-400"></i> Centro de Seguridad y Antivirus
+                        </h1>
+                        <p class="text-xs text-gray-400 mt-1">Monitoreo de estado de protección activa, detección de antivirus instalados, cortafuegos y análisis de amenazas.</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="runQuickAntivirusScan()" class="px-4 py-2.5 rounded-xl accent-bg text-white font-bold text-xs flex items-center gap-2 hover:opacity-95 transition shadow-lg">
+                            <i class="fa-solid fa-radar"></i>
+                            <span>Analizar Amenazas Ahora</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="glass-panel p-5 rounded-2xl border border-gray-800 space-y-3 flex flex-col justify-between">
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2 text-indigo-400 font-bold text-xs">
+                                    <i class="fa-solid fa-shield-virus text-lg"></i>
+                                    <span>Antivirus Principal</span>
+                                </div>
+                                <span id="antivirus-status-badge" class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] font-mono">Activo y Actualizado</span>
+                            </div>
+                            <div class="p-3 rounded-xl bg-dark-card border border-gray-800 space-y-1">
+                                <div class="text-xs font-bold text-white flex items-center gap-2">
+                                    <i class="fa-brands fa-windows text-blue-400"></i>
+                                    <span id="detected-antivirus-name">Windows Defender (Microsoft Defender Antivirus)</span>
+                                </div>
+                                <div class="text-[10px] text-gray-400">Motor de análisis en tiempo real, protección contra ransomware basada en nube.</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 pt-2">
+                            <button onclick="toggleAntivirusProtection()" id="btn-toggle-av" class="flex-1 py-2 rounded-xl bg-emerald-600/20 border border-emerald-500/30 text-emerald-400 font-bold text-xs hover:bg-emerald-600/30 transition">
+                                Desactivar Temporalmente
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel p-5 rounded-2xl border border-gray-800 space-y-3 flex flex-col justify-between">
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2 text-blue-400 font-bold text-xs">
+                                    <i class="fa-solid fa-network-wired text-lg"></i>
+                                    <span>Firewall de Red</span>
+                                </div>
+                                <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] font-mono">Protegido</span>
+                            </div>
+                            <div class="p-3 rounded-xl bg-dark-card border border-gray-800 space-y-1">
+                                <div class="text-xs font-bold text-white">Dominios Privados y Públicos</div>
+                                <div class="text-[10px] text-gray-400">Bloqueo de conexiones entrantes no autorizadas activas en todas las interfaces.</div>
+                            </div>
+                        </div>
+                        <button onclick="showToast('Firewall verificado: Sin reglas vulnerables.', 'success')" class="w-full py-2 rounded-xl bg-gray-800 hover:bg-gray-700 text-white font-semibold text-xs transition">
+                            Auditar Reglas de Firewall
+                        </button>
+                    </div>
+
+                    <div class="glass-panel p-5 rounded-2xl border border-gray-800 space-y-3 flex flex-col justify-between">
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2 text-amber-400 font-bold text-xs">
+                                    <i class="fa-solid fa-microchip text-lg"></i>
+                                    <span>Seguridad de Hardware</span>
+                                </div>
+                                <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] font-mono">HVCI Habilitado</span>
+                            </div>
+                            <div class="p-3 rounded-xl bg-dark-card border border-gray-800 space-y-1">
+                                <div class="text-xs font-bold text-white">Aislamiento de Núcleo</div>
+                                <div class="text-[10px] text-gray-400">Protección de memoria y arranque seguro (Secure Boot) operativos.</div>
+                            </div>
+                        </div>
+                        <button onclick="showToast('Virtualization-based Security (VBS) activo.', 'success')" class="w-full py-2 rounded-xl bg-gray-800 hover:bg-gray-700 text-white font-semibold text-xs transition">
+                            Verificar TPM 2.0
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2 border-b border-gray-800 pb-3 text-xs">
+                    <button onclick="switchSecuritySubTab('definitions')" id="sec-subtab-definitions" class="px-3.5 py-1.5 rounded-lg bg-indigo-600/20 border border-indigo-500/30 text-white font-semibold transition">Definiciones y Firmas Antivirus</button>
+                    <button onclick="switchSecuritySubTab('quarantine')" id="sec-subtab-quarantine" class="px-3.5 py-1.5 rounded-lg bg-gray-900 text-gray-400 hover:text-white hover:bg-gray-800 transition">Cuarentena de Amenazas (0)</button>
+                    <button onclick="switchSecuritySubTab('startup-sec')" id="sec-subtab-startup-sec" class="px-3.5 py-1.5 rounded-lg bg-gray-900 text-gray-400 hover:text-white hover:bg-gray-800 transition">Auditoría de Servicios y Puertos</button>
+                </div>
+
+                <div id="sec-section-definitions" class="glass-panel p-6 rounded-2xl border border-gray-800 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="text-xs font-bold text-white">Versión de Firmas y Motores de Detección</div>
+                            <div class="text-[11px] text-gray-400">Actualización automática desde los servidores de seguridad de Windows</div>
+                        </div>
+                        <button onclick="updateAntivirusSignatures()" class="px-4 py-2 rounded-xl accent-bg text-white font-bold text-xs hover:opacity-90 transition flex items-center gap-2">
+                            <i class="fa-solid fa-rotate"></i>
+                            <span>Buscar Actualización de Firmas</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="sec-section-quarantine" class="glass-panel p-6 rounded-2xl border border-gray-800 space-y-4 hidden">
+                    <div class="flex items-center justify-between">
+                        <div class="text-xs font-bold text-white">Elementos Aislados en Cuarentena</div>
+                        <button onclick="clearQuarantine()" class="px-3 py-1.5 rounded-xl bg-rose-500/10 text-rose-400 border border-rose-500/20 text-xs font-semibold hover:bg-rose-500/20 transition">Vaciar Cuarentena</button>
+                    </div>
+                    <div class="p-8 text-center text-gray-500 text-xs border border-dashed border-gray-800 rounded-xl">
+                        <i class="fa-solid fa-shield-heart text-2xl text-emerald-400 mb-2"></i>
+                        <div>No hay elementos maliciosos o sospechosos aislados en cuarentena actualmente.</div>
+                    </div>
+                </div>
+
+                <div id="sec-section-startup-sec" class="glass-panel p-6 rounded-2xl border border-gray-800 space-y-4 hidden">
+                    <div class="text-xs font-bold text-white">Servicios Críticos de Seguridad Activos</div>
+                    <div class="divide-y divide-gray-800/60 text-xs font-mono">
+                        <div class="py-2.5 flex items-center justify-between">
+                            <div><span class="text-indigo-400 font-bold">WinDefend</span> - Antivirus Service</div>
+                            <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 text-[10px]">Ejecutándose</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 7: PRIVACIDAD -->
+            <div id="tab-privacidad" class="tab-content hidden space-y-6">
+                <div>
+                    <h1 class="text-2xl font-extrabold text-white flex items-center gap-3">
+                        <i class="fa-solid fa-user-shield text-indigo-400"></i> Control de Privacidad y Telemetría
+                    </h1>
+                    <p class="text-xs text-gray-400 mt-1">Desactiva rastreadores comerciales de Microsoft, telemetría y publicidad en aplicaciones del sistema.</p>
+                </div>
+                <div class="glass-panel p-6 rounded-2xl border border-gray-800 space-y-4">
+                    <div class="flex items-center justify-between p-3 rounded-xl bg-dark-card border border-gray-800">
+                        <div>
+                            <div class="text-xs font-bold text-white">Desactivar Telemetría y Diagnóstico de Windows</div>
+                            <div class="text-[10px] text-gray-400">Evita que se envíen registros de uso de aplicaciones a los servidores corporativos.</div>
+                        </div>
+                        <input type="checkbox" checked onchange="togglePrivacyToggle(this)" class="accent-indigo-600 w-4 h-4 cursor-pointer">
+                    </div>
+                    <div class="flex items-center justify-between p-3 rounded-xl bg-dark-card border border-gray-800">
+                        <div>
+                            <div class="text-xs font-bold text-white">Bloquear Sugerencias y Anuncios en el Menú Inicio</div>
+                            <div class="text-[10px] text-gray-400">Elimina las recomendaciones de aplicaciones patrocinadas.</div>
+                        </div>
+                        <input type="checkbox" checked onchange="togglePrivacyToggle(this)" class="accent-indigo-600 w-4 h-4 cursor-pointer">
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 8: COPIAS DE SEGURIDAD -->
+            <div id="tab-backup" class="tab-content hidden space-y-6">
+                <div>
+                    <h1 class="text-2xl font-extrabold text-white flex items-center gap-3">
+                        <i class="fa-solid fa-hard-drive text-blue-400"></i> Copias de Seguridad y Resguardo (Backup)
+                    </h1>
+                    <p class="text-xs text-gray-400 mt-1">Crea respaldos del registro, controladores y puntos de recuperación del sistema.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="glass-panel p-5 rounded-2xl border border-gray-800 space-y-3">
+                        <div class="text-xs font-bold text-white flex items-center gap-2"><i class="fa-solid fa-clock-rotate-left text-indigo-400"></i> Puntos de Restauración</div>
+                        <p class="text-[11px] text-gray-400">Genera una instantánea del sistema para volver a un estado estable si una actualización falla.</p>
+                        <button onclick="quickRestorePoint()" class="w-full py-2.5 rounded-xl accent-bg text-white font-bold text-xs">Crear Punto Ahora</button>
+                    </div>
+                    <div class="glass-panel p-5 rounded-2xl border border-gray-800 space-y-3">
+                        <div class="text-xs font-bold text-white flex items-center gap-2"><i class="fa-solid fa-file-zipper text-emerald-400"></i> Respaldo de Drivers</div>
+                        <p class="text-[11px] text-gray-400">Exporta todos los controladores instalados a una carpeta segura para reinstalaciones limpias.</p>
+                        <button onclick="showToast('Respaldo de drivers guardado en C:\\WPC_Backups', 'success')" class="w-full py-2.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-white font-bold text-xs">Exportar Controladores</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 9: WINDOWS UPDATE -->
+            <div id="tab-updates" class="tab-content hidden space-y-6">
+                <div>
+                    <h1 class="text-2xl font-extrabold text-white flex items-center gap-3">
+                        <i class="fa-solid fa-arrows-rotate text-indigo-400"></i> Gestor de Windows Update
+                    </h1>
+                    <p class="text-xs text-gray-400 mt-1">Controla cuándo instalar las actualizaciones de seguridad y pausa parches problemáticos.</p>
+                </div>
+                <div class="glass-panel p-6 rounded-2xl border border-gray-800 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="text-xs font-bold text-white">Estado del Servicio de Actualizaciones</div>
+                            <div class="text-[11px] text-emerald-400 font-mono">Actualizado al último parche de seguridad de Windows 11.</div>
+                        </div>
+                        <button onclick="showToast('Buscando actualizaciones de Windows...', 'info')" class="px-4 py-2 rounded-xl accent-bg text-white font-bold text-xs">Buscar Actualizaciones</button>
+                    </div>
+                    <div class="border-t border-gray-800 pt-4 flex items-center justify-between">
+                        <div>
+                            <div class="text-xs font-bold text-white">Pausar Actualizaciones Automáticas</div>
+                            <div class="text-[11px] text-gray-400">Detiene temporalmente las descargas de paquetes durante 35 días.</div>
+                        </div>
+                        <button onclick="showToast('Actualizaciones pausadas correctamente.', 'success')" class="px-3 py-1.5 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-bold">Pausar 35 días</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 10: DRIVERS -->
+            <div id="tab-drivers" class="tab-content hidden space-y-6">
+                <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                    <div>
+                        <h1 class="text-2xl font-extrabold text-white flex items-center gap-3">
+                            <i class="fa-solid fa-puzzle-piece text-amber-400"></i> Centro Avanzado de Drivers y Controladores
+                        </h1>
+                        <p class="text-xs text-gray-400 mt-1">Audita componentes de hardware, gestiona respaldos, descarga paquetes offline e integra herramientas de referencia como Snappy Driver Installer, 3DP Chip y NVCleanstall.</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="runDriverScan()" class="px-4 py-2.5 rounded-xl accent-bg text-white font-bold text-xs flex items-center gap-2 hover:opacity-95 transition shadow-lg">
+                            <i class="fa-solid fa-magnifying-glass-chart"></i>
+                            <span>Analizar Controladores Obsoletos</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2 border-b border-gray-800 pb-3 text-xs">
+                    <button onclick="switchDriverSubTab('auditoria')" id="driver-subtab-auditoria" class="px-3.5 py-1.5 rounded-lg bg-indigo-600/20 border border-indigo-500/30 text-white font-semibold transition">Auditoría y Estado (6)</button>
+                    <button onclick="switchDriverSubTab('herramientas-ext')" id="driver-subtab-herramientas-ext" class="px-3.5 py-1.5 rounded-lg bg-gray-900 text-gray-400 hover:text-white hover:bg-gray-800 transition">Utilitarios Externos (SDI, 3DP, NVCleanstall)</button>
+                    <button onclick="switchDriverSubTab('respaldo')" id="driver-subtab-respaldo" class="px-3.5 py-1.5 rounded-lg bg-gray-900 text-gray-400 hover:text-white hover:bg-gray-800 transition">Respaldo y Restauración</button>
+                </div>
+
+                <div id="driver-section-auditoria" class="space-y-4">
+                    <div class="glass-panel p-4 rounded-2xl border border-gray-800 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs font-bold text-white">Estado General de Controladores</div>
+                                <div class="text-[11px] text-emerald-400">5 Controladores actualizados, 1 actualización pendiente de video (NVIDIA).</div>
+                            </div>
+                        </div>
+                        <button onclick="showToast('Forzando actualización mediante Windows Update Catalog...', 'info')" class="px-3 py-1.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-white text-xs font-medium transition">
+                            Buscar en WU Catalog
+                        </button>
+                    </div>
+
+                    <div class="glass-panel rounded-2xl border border-gray-800 overflow-hidden">
+                        <div class="p-3 border-b border-gray-800 bg-gray-900/50 grid grid-cols-12 text-xs font-bold text-gray-400 items-center">
+                            <div class="col-span-5 pl-2">Componente de Hardware / Dispositivo</div>
+                            <div class="col-span-2 text-center">Versión Actual</div>
+                            <div class="col-span-2 text-center">Versión Disponible</div>
+                            <div class="col-span-1 text-center">Estado</div>
+                            <div class="col-span-2 text-right pr-4">Acción</div>
+                        </div>
+                        <div id="drivers-list-container" class="divide-y divide-gray-800/60 text-xs max-h-[420px] overflow-y-auto"></div>
+                    </div>
+                </div>
+
+                <div id="driver-section-herramientas-ext" class="space-y-4 hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="glass-panel p-5 rounded-2xl border border-gray-800 space-y-4 flex flex-col justify-between">
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <div class="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold text-base">
+                                        <i class="fa-solid fa-bolt"></i>
+                                    </div>
+                                    <span class="px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20 text-[10px] font-mono">Open Source</span>
+                                </div>
+                                <div class="space-y-1">
+                                    <div class="font-bold text-xs text-white">Snappy Driver Installer (SDI Origin)</div>
+                                    <div class="text-[11px] text-gray-400 leading-relaxed">Herramienta avanzada para instalación y actualización masiva de drivers offline.</div>
+                                </div>
+                            </div>
+                            <div class="space-y-2 pt-2">
+                                <button onclick="launchExternalDriverTool('Snappy Driver Installer Origin')" class="w-full py-2.5 rounded-xl bg-blue-600/20 border border-blue-500/30 text-blue-400 font-bold text-xs hover:bg-blue-600/30 transition flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-play"></i><span>Lanzar SDI Origin</span>
+                                </button>
+                                <button onclick="downloadDriverPack('SDI DriverPacks')" class="w-full py-1.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-300 font-medium text-[11px] transition">Descargar Paquetes</button>
+                            </div>
+                        </div>
+
+                        <div class="glass-panel p-5 rounded-2xl border border-gray-800 space-y-4 flex flex-col justify-between">
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-base">
+                                        <i class="fa-solid fa-network-wired"></i>
+                                    </div>
+                                    <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] font-mono">Esencial Red</span>
+                                </div>
+                                <div class="space-y-1">
+                                    <div class="font-bold text-xs text-white">3DP Chip / 3DP Net</div>
+                                    <div class="text-[11px] text-gray-400 leading-relaxed">Solución ideal para detectar controladores de Red (LAN/Wi-Fi) sin internet.</div>
+                                </div>
+                            </div>
+                            <div class="space-y-2 pt-2">
+                                <button onclick="launchExternalDriverTool('3DP Net / Chip')" class="w-full py-2.5 rounded-xl bg-emerald-600/20 border border-emerald-500/30 text-emerald-400 font-bold text-xs hover:bg-emerald-600/30 transition flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-play"></i><span>Ejecutar 3DP Net</span>
+                                </button>
+                                <button onclick="downloadDriverPack('3DP Offline Installer')" class="w-full py-1.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-300 font-medium text-[11px] transition">Descargar 3DP</button>
+                            </div>
+                        </div>
+
+                        <div class="glass-panel p-5 rounded-2xl border border-gray-800 space-y-4 flex flex-col justify-between">
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <div class="w-10 h-10 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center font-bold text-base">
+                                        <i class="fa-solid fa-display"></i>
+                                    </div>
+                                    <span class="px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 border border-rose-500/20 text-[10px] font-mono">GPU / Display</span>
+                                </div>
+                                <div class="space-y-1">
+                                    <div class="font-bold text-xs text-white">NVCleanstall & DDU</div>
+                                    <div class="text-[11px] text-gray-400 leading-relaxed">Personaliza paquetes NVIDIA sin bloatware y limpia restos con DDU.</div>
+                                </div>
+                            </div>
+                            <div class="space-y-2 pt-2">
+                                <button onclick="launchExternalDriverTool('NVCleanstall / DDU')" class="w-full py-2.5 rounded-xl bg-rose-600/20 border border-rose-500/30 text-rose-400 font-bold text-xs hover:bg-rose-600/30 transition flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-play"></i><span>Lanzar NVCleanstall</span>
+                                </button>
+                                <button onclick="showToast('Iniciando DDU en Modo Seguro...', 'warn')" class="w-full py-1.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-300 font-medium text-[11px] transition">Ejecutar DDU</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="driver-section-respaldo" class="space-y-4 hidden">
+                    <div class="glass-panel p-6 rounded-2xl border border-gray-800 space-y-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold">
+                                <i class="fa-solid fa-file-zipper text-lg"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs font-bold text-white">Exportar e Instalar Respaldo (.inf)</div>
+                                <div class="text-[11px] text-gray-400">Guarda todos los controladores activos con DISM en una ruta personalizada.</div>
+                            </div>
+                        </div>
+                        <div class="p-3 bg-dark-card rounded-xl border border-gray-800 text-[11px] font-mono text-gray-300">
+                            Ruta: <span class="text-indigo-400">C:\WPC_Backups\Drivers_Backup</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="showToast('Copia de respaldo generada con éxito.', 'success')" class="flex-1 py-2.5 rounded-xl accent-bg text-white font-bold text-xs">Respaldar Ahora</button>
+                            <button onclick="showToast('Seleccione la carpeta de respaldo .inf', 'info')" class="flex-1 py-2.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-white font-semibold text-xs">Restaurar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 11: RED (RENOVADA Y AMPLIADA) -->
+            <div id="tab-red" class="tab-content hidden space-y-6">
+                <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                    <div>
+                        <h1 class="text-2xl font-extrabold text-white flex items-center gap-3">
+                            <i class="fa-solid fa-network-wired text-blue-400"></i> Centro Avanzado de Red y Conectividad
+                        </h1>
+                        <p class="text-xs text-gray-400 mt-1">Diagnostica interfaces activas, repara pilas de sockets, realiza pruebas de latencia y optimiza los parámetros TCP/IP.</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="runNetworkDiagnostics()" class="px-4 py-2.5 rounded-xl accent-bg text-white font-bold text-xs flex items-center gap-2 hover:opacity-95 transition shadow-lg">
+                            <i class="fa-solid fa-stethoscope"></i>
+                            <span>Ejecutar Diagnóstico Completo</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Sub-pestallas de Red -->
+                <div class="flex items-center gap-2 border-b border-gray-800 pb-3 text-xs">
+                    <button onclick="switchNetworkSubTab('estado')" id="net-subtab-estado" class="px-3.5 py-1.5 rounded-lg bg-indigo-600/20 border border-indigo-500/30 text-white font-semibold transition">Estado e Interfaces (2)</button>
+                    <button onclick="switchNetworkSubTab('reparacion')" id="net-subtab-reparacion" class="px-3.5 py-1.5 rounded-lg bg-gray-900 text-gray-400 hover:text-white hover:bg-gray-800 transition">Reparación y Comandos (FlushDNS / Winsock)</button>
+                    <button onclick="switchNetworkSubTab('optimizar')" id="net-subtab-optimizar" class="px-3.5 py-1.5 rounded-lg bg-gray-900 text-gray-400 hover:text-white hover:bg-gray-800 transition">Optimización TCP/IP y DNS</button>
+                </div>
+
+                <!-- SUBTAB 1: ESTADO E INTERFACES DE RED -->
+                <div id="net-section-estado" class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="glass-panel p-5 rounded-2xl border border-gray-800 space-y-3">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2 text-white font-bold text-xs">
+                                    <i class="fa-solid fa-ethernet text-blue-400 text-base"></i>
+                                    <span>Ethernet (Intel 2.5GbE)</span>
+                                </div>
+                                <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] font-mono">Conectado (1.0 Gbps)</span>
+                            </div>
+                            <div class="p-3 bg-dark-card rounded-xl border border-gray-800 text-[11px] font-mono space-y-1 text-gray-300">
+                                <div>IPv4: <span class="text-indigo-400">192.168.1.115</span></div>
+                                <div>Puerta de enlace: <span class="text-gray-400">192.168.1.1</span></div>
+                                <div>Máscara de Subred: <span class="text-gray-400">255.255.255.0</span></div>
+                            </div>
+                        </div>
+
+                        <div class="glass-panel p-5 rounded-2xl border border-gray-800 space-y-3">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2 text-white font-bold text-xs">
+                                    <i class="fa-solid fa-wifi text-indigo-400 text-base"></i>
+                                    <span>Wi-Fi 6 (Intel AX211)</span>
+                                </div>
+                                <span class="px-2 py-0.5 rounded bg-gray-800 text-gray-400 text-[10px] font-mono">Desconectado</span>
+                            </div>
+                            <div class="p-3 bg-dark-card rounded-xl border border-gray-800 text-[11px] font-mono space-y-1 text-gray-400">
+                                <div>Estado: Interfaz disponible en espera</div>
+                                <div>BSSID / Canal: Inactivo</div>
+                                <div>Seguridad: WPA3-Personal</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBTAB 2: REPARACIÑN Y COMANDOS -->
+                <div id="net-section-reparacion" class="space-y-4 hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="glass-panel p-5 rounded-2xl border border-gray-800 space-y-3 flex flex-col justify-between">
+                            <div class="space-y-2">
+                                <div class="text-xs font-bold text-white flex items-center gap-2"><i class="fa-solid fa-rotate text-blue-400"></i> Limpiar Caché DNS</div>
+                                <p class="text-[11px] text-gray-400">Ejecuta <code>ipconfig /flushdns</code> para eliminar registros corruptos o desactualizados.</p>
+                            </div>
+                            <button onclick="executeNetCommand('flushdns')" class="w-full py-2.5 rounded-xl accent-bg text-white font-bold text-xs transition">Ejecutar FlushDNS</button>
+                        </div>
+
+                        <div class="glass-panel p-5 rounded-2xl border border-gray-800 space-y-3 flex flex-col justify-between">
+                            <div class="space-y-2">
+                                <div class="text-xs font-bold text-white flex items-center gap-2"><i class="fa-solid fa-link text-emerald-400"></i> Restablecer Winsock</div>
+                                <p class="text-[11px] text-gray-400">Ejecuta <code>netsh winsock reset</code> para reparar catálogos de sockets dañados por malware o VPNs.</p>
+                            </div>
+                            <button onclick="executeNetCommand('winsock')" class="w-full py-2.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-white font-bold text-xs transition">Restablecer Winsock</button>
+                        </div>
+
+                        <div class="glass-panel p-5 rounded-2xl border border-gray-800 space-y-3 flex flex-col justify-between">
+                            <div class="space-y-2">
+                                <div class="text-xs font-bold text-white flex items-center gap-2"><i class="fa-solid fa-network-wired text-amber-400"></i> Renovar Dirección IP</div>
+                                <p class="text-[11px] text-gray-400">Libera y solicita una nueva concesión DHCP al enrutador (<code>ipconfig /renew</code>).</p>
+                            </div>
+                            <button onclick="executeNetCommand('renewip')" class="w-full py-2.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-white font-bold text-xs transition">Renovar IP (DHCP)</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBTAB 3: OPTIMIZACIÑN TCP/IP Y DNS -->
+                <div id="net-section-optimizar" class="space-y-4 hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="glass-panel p-6 rounded-2xl border border-gray-800 space-y-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold">
+                                    <i class="fa-solid fa-bolt text-lg"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs font-bold text-white">Asignar DNS Ultrarrápidos (Cloudflare / Google)</div>
+                                    <div class="text-[11px] text-gray-400">Reduce la latencia de resolución web configurando DNS seguros de alta velocidad.</div>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button onclick="setCustomDNS('Cloudflare')" class="p-3 rounded-xl bg-dark-card border border-gray-800 hover:border-indigo-500 text-left transition">
+                                    <div class="font-bold text-xs text-white">Cloudflare (1.1.1.1)</div>
+                                    <div class="text-[10px] text-gray-400">Máxima privacidad y velocidad</div>
+                                </button>
+                                <button onclick="setCustomDNS('Google')" class="p-3 rounded-xl bg-dark-card border border-gray-800 hover:border-blue-500 text-left transition">
+                                    <div class="font-bold text-xs text-white">Google DNS (8.8.8.8)</div>
+                                    <div class="text-[10px] text-gray-400">Estabilidad global garantizada</div>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="glass-panel p-6 rounded-2xl border border-gray-800 space-y-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">
+                                    <i class="fa-solid fa-gauge-high text-lg"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs font-bold text-white">Prueba de Latencia y Conectividad (Ping Test)</div>
+                                    <div class="text-[11px] text-gray-400">Verifica el tiempo de respuesta actual con pasarelas internacionales.</div>
+                                </div>
+                            </div>
+                            <button onclick="runPingTest()" class="w-full py-3 rounded-xl accent-bg text-white font-bold text-xs flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-signal"></i>
+                                <span>Verificar Ping a Servidores Principales</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 12: REPARACIÑN -->
+            <div id="tab-reparacion" class="tab-content hidden space-y-6">
+                <div>
+                    <h1 class="text-2xl font-extrabold text-white flex items-center gap-3">
+                        <i class="fa-solid fa-wrench text-rose-400"></i> Módulo de Reparación del Sistema
+                    </h1>
+                    <p class="text-xs text-gray-400 mt-1">Ejecuta comandos de reparación de archivos del sistema (SFC y DISM) de forma automatizada.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="glass-panel p-5 rounded-2xl border border-gray-800 space-y-3">
+                        <div class="text-xs font-bold text-white flex items-center gap-2"><i class="fa-solid fa-file-shield text-indigo-400"></i> Comprobador SFC</div>
+                        <p class="text-[11px] text-gray-400">Escanea y reemplaza archivos corruptos del sistema operativo (sfc /scannow).</p>
+                        <button onclick="showToast('Iniciando análisis SFC en segundo plano...', 'info')" class="w-full py-2.5 rounded-xl accent-bg text-white font-bold text-xs">Ejecutar SFC /Scannow</button>
+                    </div>
+                    <div class="glass-panel p-5 rounded-2xl border border-gray-800 space-y-3">
+                        <div class="text-xs font-bold text-white flex items-center gap-2"><i class="fa-solid fa-microchip text-emerald-400"></i> Reparación DISM</div>
+                        <p class="text-[11px] text-gray-400">Restaura la salud de la imagen de Windows contra errores de componentes.</p>
+                        <button onclick="showToast('Iniciando reparación de imagen DISM...', 'info')" class="w-full py-2.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-white font-bold text-xs">Ejecutar DISM RestoreHealth</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 13: HERRAMIENTAS EXTERNAS -->
+            <div id="tab-herramientas-ext" class="tab-content hidden space-y-6">
+                <div>
+                    <h1 class="text-2xl font-extrabold text-white flex items-center gap-3">
+                        <i class="fa-solid fa-toolbox text-indigo-400"></i> Accesos a Herramientas Nativas de Windows
+                    </h1>
+                    <p class="text-xs text-gray-400 mt-1">Lanzadores rápidos a consolas administrativas ocultas de Windows.</p>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                    <button onclick="showToast('Abriendo Administración de Discos...', 'info')" class="p-4 rounded-xl glass-panel border border-gray-800 hover:border-indigo-500 transition text-left space-y-2">
+                        <i class="fa-solid fa-hard-drive text-indigo-400 text-lg"></i>
+                        <div class="font-bold text-xs text-white">Adm. de Discos</div>
+                    </button>
+                    <button onclick="showToast('Abriendo Administrador de Dispositivos...', 'info')" class="p-4 rounded-xl glass-panel border border-gray-800 hover:border-indigo-500 transition text-left space-y-2">
+                        <i class="fa-solid fa-computer text-emerald-400 text-lg"></i>
+                        <div class="font-bold text-xs text-white">Adm. Dispositivos</div>
+                    </button>
+                    <button onclick="showToast('Abriendo Visor de Eventos...', 'info')" class="p-4 rounded-xl glass-panel border border-gray-800 hover:border-indigo-500 transition text-left space-y-2">
+                        <i class="fa-solid fa-list-check text-blue-400 text-lg"></i>
+                        <div class="font-bold text-xs text-white">Visor de Eventos</div>
+                    </button>
+                    <button onclick="showToast('Abriendo Editor del Registro...', 'info')" class="p-4 rounded-xl glass-panel border border-gray-800 hover:border-indigo-500 transition text-left space-y-2">
+                        <i class="fa-solid fa-code text-amber-400 text-lg"></i>
+                        <div class="font-bold text-xs text-white">Editor de Registro</div>
+                    </button>
+                    <button onclick="showToast('Abriendo Administrador de tareas...', 'info')" class="p-4 rounded-xl glass-panel border border-gray-800 hover:border-indigo-500 transition text-left space-y-2">
+                        <i class="fa-solid fa-list text-rose-400 text-lg"></i>
+                        <div class="font-bold text-xs text-white">Administrador de tareas</div>
+                    </button>
+                    <button onclick="showToast('Abriendo Servicios de Windows...', 'info')" class="p-4 rounded-xl glass-panel border border-gray-800 hover:border-indigo-500 transition text-left space-y-2">
+                        <i class="fa-solid fa-gears text-purple-400 text-lg"></i>
+                        <div class="font-bold text-xs text-white">Servicios</div>
+                    </button>
+                    <button onclick="showToast('Abriendo Configuración de red...', 'info')" class="p-4 rounded-xl glass-panel border border-gray-800 hover:border-indigo-500 transition text-left space-y-2">
+                        <i class="fa-solid fa-network-wired text-cyan-400 text-lg"></i>
+                        <div class="font-bold text-xs text-white">Conexiones de red</div>
+                    </button>
+                    <button onclick="showToast('Abriendo Firewall de Windows...', 'info')" class="p-4 rounded-xl glass-panel border border-gray-800 hover:border-indigo-500 transition text-left space-y-2">
+                        <i class="fa-solid fa-shield-halved text-emerald-400 text-lg"></i>
+                        <div class="font-bold text-xs text-white">Firewall</div>
+                    </button>
+                    <button onclick="showToast('Abriendo Información del sistema...', 'info')" class="p-4 rounded-xl glass-panel border border-gray-800 hover:border-indigo-500 transition text-left space-y-2">
+                        <i class="fa-solid fa-circle-info text-blue-400 text-lg"></i>
+                        <div class="font-bold text-xs text-white">Información del sistema</div>
+                    </button>
+                    <button onclick="showToast('Abriendo Consola de comandos...', 'info')" class="p-4 rounded-xl glass-panel border border-gray-800 hover:border-indigo-500 transition text-left space-y-2">
+                        <i class="fa-solid fa-terminal text-gray-300 text-lg"></i>
+                        <div class="font-bold text-xs text-white">CMD</div>
+                    </button>
+                    <button onclick="showToast('Abriendo PowerShell...', 'info')" class="p-4 rounded-xl glass-panel border border-gray-800 hover:border-indigo-500 transition text-left space-y-2">
+                        <i class="fa-solid fa-terminal text-indigo-400 text-lg"></i>
+                        <div class="font-bold text-xs text-white">PowerShell</div>
+                    </button>
+                    <button onclick="showToast('Abriendo Restaurar sistema...', 'info')" class="p-4 rounded-xl glass-panel border border-gray-800 hover:border-indigo-500 transition text-left space-y-2">
+                        <i class="fa-solid fa-clock-rotate-left text-amber-400 text-lg"></i>
+                        <div class="font-bold text-xs text-white">Restaurar sistema</div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- VIEW 14: HISTORIAL & LOGS -->
+            <div id="tab-historial" class="tab-content hidden space-y-6">
+                <div>
+                    <h1 class="text-2xl font-extrabold text-white flex items-center gap-3">
+                        <i class="fa-solid fa-clock-rotate-left text-indigo-400"></i> Historial de Eventos y Logs
+                    </h1>
+                    <p class="text-xs text-gray-400 mt-1">Registro de acciones y optimizaciones ejecutadas en la sesión.</p>
+                </div>
+                <div class="glass-panel p-5 rounded-2xl border border-gray-800 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <div class="text-xs font-bold text-white">Consola de Registros en Tiempo Real</div>
+                        <button onclick="showToast('Logs exportados a archivo de texto.', 'success')" class="px-3 py-1 rounded bg-gray-800 hover:bg-gray-700 text-white text-xs">Exportar Logs</button>
+                    </div>
+                    <div id="logs-container" class="p-4 rounded-xl bg-dark-card border border-gray-800 font-mono text-[11px] text-gray-300 space-y-1.5 max-h-72 overflow-y-auto">
+                        <div>[11:51:00] [INFO] WPC-SutilBox Pro v1.3 iniciado correctamente.</div>
+                        <div>[11:51:05] [SUCCESS] Comprobación de seguridad con Windows Defender superada.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 15: CONFIGURACIÑN -->
+            <div id="tab-configuracion" class="tab-content hidden space-y-6">
+                <div>
+                    <h1 class="text-2xl font-extrabold text-white flex items-center gap-3">
+                        <i class="fa-solid fa-gear text-gray-300"></i> Configuración Pro de WPC-SutilBox
+                    </h1>
+                    <p class="text-xs text-gray-400 mt-1">Ajustes avanzados del comportamiento del programa, automatización en reposo, seguridad de inicio y persistencia de temas.</p>
+                </div>
+
+                <!-- Comportamiento del Sistema y Automatización -->
+                <div class="glass-panel p-5 rounded-2xl border border-gray-800 space-y-4">
+                    <h3 class="text-xs font-bold text-indigo-400 uppercase tracking-wider">Automatización y Rendimiento en Segundo Plano</h3>
+                    
+                    <div class="space-y-3 divide-y divide-gray-800/60 text-xs">
+                        <div class="flex items-center justify-between pt-2">
+                            <div>
+                                <div class="font-bold text-white">Ejecutar al iniciar Windows con privilegios elevados</div>
+                                <div class="text-[11px] text-gray-400">Inicia la protección y monitoreo automático en el arranque del sistema.</div>
+                            </div>
+                            <input type="checkbox" id="cfg-startup" checked class="w-4 h-4 accent-indigo-600 rounded cursor-pointer" onchange="saveConfigState()">
+                        </div>
+
+                        <div class="flex items-center justify-between pt-3">
+                            <div>
+                                <div class="font-bold text-white">Optimización Automática en Inactividad (Idle Boost)</div>
+                                <div class="text-[11px] text-gray-400">Libera memoria RAM y caché temporal automáticamente tras 15 minutos sin actividad.</div>
+                            </div>
+                            <input type="checkbox" id="cfg-idle" class="w-4 h-4 accent-indigo-600 rounded cursor-pointer" onchange="saveConfigState()">
+                        </div>
+
+                        <div class="flex items-center justify-between pt-3">
+                            <div>
+                                <div class="font-bold text-white">Minimizar a la bandeja del sistema (Tray)</div>
+                                <div class="text-[11px] text-gray-400">Al cerrar la ventana principal, la aplicación continúa ejecutándose en segundo plano.</div>
+                            </div>
+                            <input type="checkbox" id="cfg-tray" checked class="w-4 h-4 accent-indigo-600 rounded cursor-pointer" onchange="saveConfigState()">
+                        </div>
+
+                        <div class="flex items-center justify-between pt-3">
+                            <div>
+                                <div class="font-bold text-white">Notificaciones de Alerta por Picos de Temperatura (>80°C)</div>
+                                <div class="text-[11px] text-gray-400">Muestra un aviso flotante si el procesador o tarjeta gráfica superan el umbral seguro.</div>
+                            </div>
+                            <input type="checkbox" id="cfg-temp-alert" checked class="w-4 h-4 accent-indigo-600 rounded cursor-pointer" onchange="saveConfigState()">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Canales de Actualización y Mantenimiento -->
+                <div class="glass-panel p-5 rounded-2xl border border-gray-800 space-y-4">
+                    <h3 class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Canal de Actualizaciones y Depuración</h3>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                        <div class="space-y-1.5">
+                            <label class="font-bold text-white">Canal de Lanzamiento</label>
+                            <select id="cfg-channel" class="w-full px-3 py-2 rounded-xl bg-dark-input border border-gray-800 text-white font-medium" onchange="saveConfigState()">
+                                <option value="stable">Estable (WHQL / Producción)</option>
+                                <option value="beta" selected>Beta (Nuevas funciones anticipadas)</option>
+                                <option value="nightly">Nightly (Desarrollo diario)</option>
+                            </select>
+                        </div>
+
+                        <div class="space-y-1.5">
+                            <label class="font-bold text-white">Nivel de Registro (Logs)</label>
+                            <select id="cfg-loglevel" class="w-full px-3 py-2 rounded-xl bg-dark-input border border-gray-800 text-white font-medium" onchange="saveConfigState()">
+                                <option value="info">Información estándar (INFO)</option>
+                                <option value="debug">Depuración avanzada (DEBUG)</option>
+                                <option value="error">Solo errores críticos</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Apariencia y Persistencia de Estilo -->
+                <div class="glass-panel p-5 rounded-2xl border border-gray-800 space-y-4">
+                    <h3 class="text-xs font-bold text-purple-400 uppercase tracking-wider">Apariencia, Tema y Persistencia</h3>
+                    
+                    <div class="space-y-4 text-xs">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <div class="font-bold text-white">Modo Oscuro Forzado</div>
+                                <div class="text-[11px] text-gray-400">Mantiene la interfaz en tonos oscuros de alto contraste.</div>
+                            </div>
+                            <input type="checkbox" id="cfg-darkmode" checked onchange="toggleThemeMode(this.checked)" class="w-4 h-4 accent-indigo-600 rounded cursor-pointer">
+                        </div>
+
+                        <!-- Accent Color Picker -->
+                        <div class="space-y-2">
+                            <div class="font-bold text-white">Color de Acento Principal de la Interfaz</div>
+                            <div class="flex flex-wrap items-center gap-2">
+                                <button onclick="setThemeAccent('#6366f1', '99, 102, 241')" class="w-6 h-6 rounded-full bg-indigo-500 hover:scale-110 transition ring-2 ring-white/20"></button>
+                                <button onclick="setThemeAccent('#3b82f6', '59, 130, 246')" class="w-6 h-6 rounded-full bg-blue-500 hover:scale-110 transition"></button>
+                                <button onclick="setThemeAccent('#10b981', '16, 185, 129')" class="w-6 h-6 rounded-full bg-emerald-500 hover:scale-110 transition"></button>
+                                <button onclick="setThemeAccent('#f59e0b', '245, 158, 11')" class="w-6 h-6 rounded-full bg-amber-500 hover:scale-110 transition"></button>
+                                <button onclick="setThemeAccent('#f43f5e', '244, 63, 94')" class="w-6 h-6 rounded-full bg-rose-500 hover:scale-110 transition"></button>
+                                <button onclick="setThemeAccent('#a855f7', '168, 85, 247')" class="w-6 h-6 rounded-full bg-purple-500 hover:scale-110 transition"></button>
+                                
+                                <div class="flex items-center gap-1.5 ml-2">
+                                    <span class="text-xs text-gray-500 font-mono">#</span>
+                                    <input type="text" id="hex-color-input" value="6366f1" class="w-20 px-2 py-1 rounded bg-dark-input border border-gray-800 text-xs text-white font-mono uppercase">
+                                    <button onclick="applyHexTheme()" class="px-3 py-1 rounded bg-gray-800 hover:bg-gray-700 text-white text-xs font-bold">Aplicar</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Language Picker -->
+                        <div class="flex items-center justify-between pt-2">
+                            <div>
+                                <div class="font-bold text-white">Idioma del Sistema</div>
+                                <div class="text-[11px] text-gray-400">Selecciona el idioma de los mensajes y alertas.</div>
+                            </div>
+                            <select id="cfg-lang" class="px-3 py-1.5 rounded-xl bg-dark-input border border-gray-800 text-xs text-white font-medium" onchange="saveConfigState()">
+                                <option value="es">Español (ES)</option>
+                                <option value="en">English (US)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Soporte, Respaldo y Restablecimiento -->
+                <div class="glass-panel p-5 rounded-2xl border border-gray-800 space-y-3 text-xs">
+                    <h3 class="text-xs font-bold text-rose-400 uppercase tracking-wider">Gestión de Perfil y Restablecimiento</h3>
+                    <p class="text-gray-400">Exporta tu configuración personalizada o restaura los valores predeterminados de fábrica de la aplicación.</p>
+                    <div class="flex items-center gap-3 pt-1">
+                        <button onclick="exportConfig()" class="px-3 py-2 rounded-xl bg-gray-800 hover:bg-gray-700 text-white font-semibold">
+                            Exportar Ajustes (.json)
+                        </button>
+                        <button onclick="resetConfigDefaults()" class="px-3 py-2 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 font-semibold">
+                            Restablecer Valores Predeterminados
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Modal de Instalación Rápida con Winget -->
+    <div id="install-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="glass-panel w-full max-w-2xl rounded-2xl border border-gray-800 overflow-hidden shadow-2xl space-y-4 p-6">
+            <div class="flex items-center justify-between pb-3 border-b border-gray-800">
+                <div class="flex items-center gap-2 text-white font-bold text-sm">
+                    <i class="fa-solid fa-download text-indigo-400"></i>
+                    <span>Catálogo de Instalación Esencial (Winget Store)</span>
+                </div>
+                <button onclick="closeInstallModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-base"></i></button>
+            </div>
+            <div class="text-xs text-gray-400">
+                Selecciona herramientas de desarrollo, navegadores, utilidades o reproductores para instalarlas en segundo plano.
+            </div>
+            <div class="grid grid-cols-2 gap-3 py-2 text-xs">
+                <label class="flex items-center gap-2 p-3 rounded-xl bg-dark-card border border-gray-800 cursor-pointer">
+                    <input type="checkbox" class="accent-indigo-600 rounded w-4 h-4">
+                    <span>Mozilla Firefox</span>
+                </label>
+                <label class="flex items-center gap-2 p-3 rounded-xl bg-dark-card border border-gray-800 cursor-pointer">
+                    <input type="checkbox" class="accent-indigo-600 rounded w-4 h-4">
+                    <span>7-Zip Archiver</span>
+                </label>
+                <label class="flex items-center gap-2 p-3 rounded-xl bg-dark-card border border-gray-800 cursor-pointer">
+                    <input type="checkbox" class="accent-indigo-600 rounded w-4 h-4">
+                    <span>VLC Media Player</span>
+                </label>
+                <label class="flex items-center gap-2 p-3 rounded-xl bg-dark-card border border-gray-800 cursor-pointer">
+                    <input type="checkbox" class="accent-indigo-600 rounded w-4 h-4">
+                    <span>Git & GitHub CLI</span>
+                </label>
+            </div>
+            <div class="flex justify-end gap-2 pt-2">
+                <button onclick="closeInstallModal()" class="px-4 py-2 rounded-xl bg-gray-800 hover:bg-gray-700 text-white font-semibold text-xs">Cancelar</button>
+                <button onclick="installSelectedWingetApps()" class="px-4 py-2 rounded-xl accent-bg text-white font-bold text-xs">Instalar Seleccionadas</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let applicationsData = [
+            { id: 1, name: 'Google Chrome', publisher: 'Google LLC', size: '340 MB', version: '126.0.6478', type: 'installed', startup: false, icon: 'fa-brands fa-chrome text-blue-400', selected: false },
+            { id: 2, name: 'Visual Studio Code', publisher: 'Microsoft Corporation', size: '410 MB', version: '1.91.1', type: 'installed', startup: true, icon: 'fa-solid fa-code text-indigo-400', selected: false },
+            { id: 3, name: 'Discord', publisher: 'Discord Inc.', size: '280 MB', version: '1.0.91', type: 'installed', startup: true, icon: 'fa-brands fa-discord text-indigo-400', selected: false },
+            { id: 4, name: 'Steam', publisher: 'Valve Corporation', size: '750 MB', version: '2.10.4', type: 'installed', startup: true, icon: 'fa-brands fa-steam text-gray-300', selected: false },
+            { id: 5, name: 'Cortana Companion', publisher: 'Microsoft Corporation', size: '45 MB', version: '4.2', type: 'bloatware', startup: false, icon: 'fa-solid fa-trash-can text-rose-400', selected: false }
+        ];
+
+        let driversData = [
+            { id: 1, name: 'NVIDIA GeForce RTX 4060 Laptop GPU', category: 'Tarjeta Gráfica (GPU)', currentVersion: '551.86', availableVersion: '555.99', status: 'Actualización disponible', icon: 'fa-solid fa-display text-emerald-400' },
+            { id: 2, name: 'Intel(R) Wi-Fi 6 AX211 160MHz', category: 'Adaptador Inalámbrico (Wi-Fi)', currentVersion: '23.30.0.6', availableVersion: '23.50.0.3', status: 'Actualización disponible', icon: 'fa-solid fa-wifi text-blue-400' },
+            { id: 3, name: 'Realtek Gaming 2.5GbE Family Controller', category: 'Controlador de Red LAN', currentVersion: '11.16.0323', availableVersion: '11.16.0323', status: 'Actualizado', icon: 'fa-solid fa-network-wired text-indigo-400' },
+            { id: 4, name: 'Intel(R) Chipset SATA RAID Controller', category: 'Controlador de Almacenamiento', currentVersion: '19.5.2.1049', availableVersion: '19.5.2.1049', status: 'Actualizado', icon: 'fa-solid fa-hard-drive text-amber-400' },
+            { id: 5, name: 'Realtek High Definition Audio (SST)', category: 'Controlador de Audio', currentVersion: '6.0.9430.1', availableVersion: '6.0.9430.1', status: 'Actualizado', icon: 'fa-solid fa-volume-high text-rose-400' },
+            { id: 6, name: 'Intel(R) Serial IO I2C Controller', category: 'Sistema y Placa Base', currentVersion: '30.100.2233.3', availableVersion: '30.100.2233.3', status: 'Actualizado', icon: 'fa-solid fa-microchip text-indigo-400' }
+        ];
+
+        let currentAppSubTab = 'installed';
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.add('hidden');
+            });
+            const target = document.getElementById(tabId);
+            if(target) {
+                target.classList.remove('hidden');
+            }
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active', 'bg-indigo-600/20', 'border-indigo-500/30', 'text-white');
+                btn.classList.add('text-gray-400');
+            });
+
+            const activeBtn = document.getElementById('nav-' + tabId);
+            if(activeBtn) {
+                activeBtn.classList.add('active', 'bg-indigo-600/20', 'border-indigo-500/30', 'text-white');
+                activeBtn.classList.remove('text-gray-400');
+            }
+
+            const breadcrumb = document.getElementById('current-breadcrumb');
+            if(breadcrumb && activeBtn) {
+                breadcrumb.textContent = activeBtn.querySelector('span').textContent;
+            }
+            logEvent(`Navegación cambiada a la sección: ${activeBtn ? activeBtn.querySelector('span').textContent : tabId}`);
+        }
+
+        function switchAppSubTab(subtab) {
+            currentAppSubTab = subtab;
+            ['installed', 'startup', 'bloatware'].forEach(st => {
+                const btn = document.getElementById(`app-subtab-${st}`);
+                if(btn) {
+                    if(st === subtab) {
+                        btn.className = 'px-3.5 py-1.5 rounded-lg bg-indigo-600/20 border border-indigo-500/30 text-white font-semibold transition';
+                    } else {
+                        btn.className = 'px-3.5 py-1.5 rounded-lg bg-gray-900 text-gray-400 hover:text-white hover:bg-gray-800 transition';
+                    }
+                }
+            });
+            renderAppsList();
+        }
+
+        function switchDriverSubTab(subtab) {
+            ['auditoria', 'herramientas-ext', 'respaldo'].forEach(st => {
+                const btn = document.getElementById(`driver-subtab-${st}`);
+                const sec = document.getElementById(`driver-section-${st}`);
+                if(btn && sec) {
+                    if(st === subtab) {
+                        btn.className = 'px-3.5 py-1.5 rounded-lg bg-indigo-600/20 border border-indigo-500/30 text-white font-semibold transition';
+                        sec.classList.remove('hidden');
+                    } else {
+                        btn.className = 'px-3.5 py-1.5 rounded-lg bg-gray-900 text-gray-400 hover:text-white hover:bg-gray-800 transition';
+                        sec.classList.add('hidden');
+                    }
+                }
+            });
+        }
+
+        function switchNetworkSubTab(subtab) {
+            ['estado', 'reparacion', 'optimizar'].forEach(st => {
+                const btn = document.getElementById(`net-subtab-${st}`);
+                const sec = document.getElementById(`net-section-${st}`);
+                if(btn && sec) {
+                    if(st === subtab) {
+                        btn.className = 'px-3.5 py-1.5 rounded-lg bg-indigo-600/20 border border-indigo-500/30 text-white font-semibold transition';
+                        sec.classList.remove('hidden');
+                    } else {
+                        btn.className = 'px-3.5 py-1.5 rounded-lg bg-gray-900 text-gray-400 hover:text-white hover:bg-gray-800 transition';
+                        sec.classList.add('hidden');
+                    }
+                }
+            });
+        }
+
+        function runNetworkDiagnostics() {
+            showToast('Iniciando diagnóstico completo de interfaces de red y gateways...', 'info');
+            logEvent('Diagnóstico de red avanzado iniciado.');
+            setTimeout(() => {
+                showToast('Diagnóstico finalizado: Interfaces operando sin pérdida de paquetes.', 'success');
+                logEvent('Diagnóstico de red completado satisfactoriamente.');
+            }, 2000);
+        }
+
+        function executeNetCommand(type) {
+            if(type === 'flushdns') {
+                showToast('Caché DNS limpiada con éxito (ipconfig /flushdns)', 'success');
+                logEvent('Comando ejecutado: ipconfig /flushdns');
+            } else if(type === 'winsock') {
+                showToast('Catálogo Winsock restablecido correctamente.', 'success');
+                logEvent('Comando ejecutado: netsh winsock reset');
+            } else if(type === 'renewip') {
+                showToast('Concesión DHCP renovada en la interfaz Ethernet.', 'success');
+                logEvent('Comando ejecutado: ipconfig /renew');
+            }
+        }
+
+        function setCustomDNS(provider) {
+            showToast(`DNS de ${provider} configurados correctamente en la interfaz principal.`, 'success');
+            logEvent(`Servidores DNS cambiados a perfil de ${provider}.`);
+        }
+
+        function runPingTest() {
+            showToast('Realizando test de latencia con Cloudflare (1.1.1.1)...', 'info');
+            setTimeout(() => {
+                showToast('Ping promedio obtenido: 12ms (Excelente conectividad).', 'success');
+                logEvent('Test de latencia completado: 12ms a 1.1.1.1');
+            }, 1500);
+        }
+
+        function renderAppsList() {
+            const container = document.getElementById('apps-list-container');
+            if(!container) return;
+            container.innerHTML = '';
+            
+            const filtered = applicationsData.filter(app => {
+                if(currentAppSubTab === 'startup') return app.startup;
+                if(currentAppSubTab === 'bloatware') return app.type === 'bloatware';
+                return true;
+            });
+
+            if(filtered.length === 0) {
+                container.innerHTML = `<div class="p-6 text-center text-gray-500 text-xs">No hay aplicaciones registradas en esta categoría.</div>`;
+                return;
+            }
+
+            filtered.forEach(app => {
+                const row = document.createElement('div');
+                row.className = 'p-3 grid grid-cols-12 items-center hover:bg-dark-card/60 transition';
+                row.innerHTML = `
+                    <div class="col-span-6 flex items-center gap-3 pl-2">
+                        <input type="checkbox" ${app.selected ? 'checked' : ''} onchange="toggleAppSelect(${app.id})" class="accent-indigo-600 rounded w-4 h-4 cursor-pointer">
+                        <i class="${app.icon} text-base w-5 text-center"></i>
+                        <div>
+                            <div class="font-bold text-white">${app.name}</div>
+                            <div class="text-[10px] text-gray-500">${app.publisher}</div>
+                        </div>
+                    </div>
+                    <div class="col-span-2 text-center text-gray-400 font-mono">${app.size}</div>
+                    <div class="col-span-2 text-center text-gray-400 font-mono">${app.version}</div>
+                    <div class="col-span-2 text-right pr-4">
+                        <button onclick="uninstallApp(${app.id})" class="px-2.5 py-1 rounded bg-rose-500/10 text-rose-400 hover:bg-rose-500/20 transition font-medium">Desinstalar</button>
+                    </div>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function renderDriversList() {
+            const container = document.getElementById('drivers-list-container');
+            if(!container) return;
+            container.innerHTML = '';
+
+            driversData.forEach(driver => {
+                const isOutdated = driver.status === 'Actualización disponible';
+                const statusBadge = isOutdated 
+                    ? `<span class="px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20 text-[10px]">Actualizable</span>`
+                    : `<span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px]">Actualizado</span>`;
+                
+                const row = document.createElement('div');
+                row.className = 'p-3 grid grid-cols-12 items-center hover:bg-dark-card/60 transition';
+                row.innerHTML = `
+                    <div class="col-span-5 flex items-center gap-3 pl-2">
+                        <i class="${driver.icon} text-base w-5 text-center"></i>
+                        <div>
+                            <div class="font-bold text-white">${driver.name}</div>
+                            <div class="text-[10px] text-gray-500">${driver.category}</div>
+                        </div>
+                    </div>
+                    <div class="col-span-2 text-center text-gray-400 font-mono">${driver.currentVersion}</div>
+                    <div class="col-span-2 text-center text-indigo-400 font-mono">${driver.availableVersion}</div>
+                    <div class="col-span-1 text-center">${statusBadge}</div>
+                    <div class="col-span-2 text-right pr-4">
+                        <button onclick="updateSingleDriver(${driver.id})" class="px-2.5 py-1 rounded ${isOutdated ? 'accent-bg text-white' : 'bg-gray-800 text-gray-400 hover:text-white'} transition font-medium">
+                            ${isOutdated ? 'Actualizar' : 'Reinstalar'}
+                        </button>
+                    </div>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function runDriverScan() {
+            showToast('Analizando componentes de hardware con base de datos local y Windows Update...', 'info');
+            logEvent('Iniciando escaneo completo de controladores.');
+            setTimeout(() => {
+                showToast('Escaneo finalizado: 1 actualización detectada.', 'success');
+                logEvent('Escaneo de drivers completado con éxito.');
+            }, 2000);
+        }
+
+        function updateSingleDriver(id) {
+            const drv = driversData.find(d => d.id === id);
+            if(drv) {
+                drv.currentVersion = drv.availableVersion;
+                drv.status = 'Actualizado';
+                renderDriversList();
+                showToast(`Controlador ${drv.name} actualizado correctamente.`, 'success');
+                logEvent(`Driver actualizado: ${drv.name} a versión ${drv.availableVersion}`);
+            }
+        }
+
+        function launchExternalDriverTool(toolName) {
+            showToast(`Lanzando entorno de ${toolName}...`, 'info');
+            logEvent(`Herramienta externa de drivers iniciada: ${toolName}`);
+        }
+
+        function downloadDriverPack(packName) {
+            showToast(`Descargando paquetes para ${packName}...`, 'info');
+            logEvent(`Descarga iniciada de paquetes offline: ${packName}`);
+            setTimeout(() => {
+                showToast(`¡Paquete ${packName} descargado e indexado!`, 'success');
+                logEvent(`Paquete offline listo para instalación: ${packName}`);
+            }, 3000);
+        }
+
+        function toggleAppSelect(id) {
+            const app = applicationsData.find(a => a.id === id);
+            if(app) {
+                app.selected = !app.selected;
+                const selectedCount = applicationsData.filter(a => a.selected).length;
+                const countBadge = document.getElementById('selected-apps-count');
+                const bulkBtn = document.getElementById('btn-bulk-uninstall');
+                if(selectedCount > 0) {
+                    countBadge.textContent = `${selectedCount} seleccionadas`;
+                    countBadge.classList.remove('hidden');
+                    bulkBtn.classList.remove('hidden');
+                } else {
+                    countBadge.classList.add('hidden');
+                    bulkBtn.classList.add('hidden');
+                }
+            }
+        }
+
+        function filterAppsList(query) {
+            const container = document.getElementById('apps-list-container');
+            if(!container) return;
+            const q = query.toLowerCase();
+            const rows = container.children;
+            for(let row of rows) {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(q) ? 'grid' : 'none';
+            }
+        }
+
+        function bulkUninstallApps() {
+            applicationsData = applicationsData.filter(a => !a.selected);
+            renderAppsList();
+            document.getElementById('selected-apps-count').classList.add('hidden');
+            document.getElementById('btn-bulk-uninstall').classList.add('hidden');
+            showToast('Desinstalación silenciosa en lote completada con éxito.', 'success');
+            logEvent('Desinstalación en lote ejecutada mediante Winget.');
+        }
+
+        function exportAppsInventory() {
+            showToast('Inventario de aplicaciones exportado a Excel.', 'success');
+            logEvent('Exportación de inventario de software realizada.');
+        }
+
+        function uninstallApp(id) {
+            const app = applicationsData.find(a => a.id === id);
+            applicationsData = applicationsData.filter(a => a.id !== id);
+            renderAppsList();
+            showToast(`Aplicación ${app ? app.name : ''} desinstalada correctamente.`, 'success');
+            logEvent(`Aplicación desinstalada: ${app ? app.name : id}`);
+        }
+
+        function toggleSelectAllApps(masterCheckbox) {
+            applicationsData.forEach(a => a.selected = masterCheckbox.checked);
+            renderAppsList();
+            toggleAppSelect(applicationsData[0] ? applicationsData[0].id : 0);
+        }
+
+        function switchSecuritySubTab(subtab) {
+            ['definitions', 'quarantine', 'startup-sec'].forEach(st => {
+                const btn = document.getElementById(`sec-subtab-${st}`);
+                const sec = document.getElementById(`sec-section-${st}`);
+                if(btn && sec) {
+                    if(st === subtab) {
+                        btn.className = 'px-3.5 py-1.5 rounded-lg bg-indigo-600/20 border border-indigo-500/30 text-white font-semibold transition';
+                        sec.classList.remove('hidden');
+                    } else {
+                        btn.className = 'px-3.5 py-1.5 rounded-lg bg-gray-900 text-gray-400 hover:text-white hover:bg-gray-800 transition';
+                        sec.classList.add('hidden');
+                    }
+                }
+            });
+        }
+
+        function runQuickAntivirusScan() {
+            showToast('Iniciando análisis rápido de amenazas con Windows Defender...', 'info');
+            logEvent('Análisis rápido de antivirus iniciado.');
+            setTimeout(() => {
+                showToast('¡Análisis completado! 0 amenazas encontradas en el sistema.', 'success');
+                logEvent('Análisis de antivirus finalizado sin detecciones.');
+            }, 2500);
+        }
+
+        let avActive = true;
+        function toggleAntivirusProtection() {
+            avActive = !avActive;
+            const badge = document.getElementById('antivirus-status-badge');
+            const btn = document.getElementById('btn-toggle-av');
+            if(avActive) {
+                badge.className = 'px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] font-mono';
+                badge.textContent = 'Activo y Actualizado';
+                btn.className = 'flex-1 py-2 rounded-xl bg-emerald-600/20 border border-emerald-500/30 text-emerald-400 font-bold text-xs hover:bg-emerald-600/30 transition';
+                btn.textContent = 'Desactivar Temporalmente';
+                showToast('Protección antivirus en tiempo real activada.', 'success');
+                logEvent('Protección antivirus habilitada.');
+            } else {
+                badge.className = 'px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 border border-rose-500/20 text-[10px] font-mono';
+                badge.textContent = 'Desactivado (Riesgo)';
+                btn.className = 'flex-1 py-2 rounded-xl bg-rose-600/20 border border-rose-500/30 text-rose-400 font-bold text-xs hover:bg-rose-600/30 transition';
+                btn.textContent = 'Activar Protección';
+                showToast('Advertencia: Antivirus desactivado temporalmente.', 'warn');
+                logEvent('Advertencia: Antivirus desactivado por el usuario.');
+            }
+        }
+
+        function updateAntivirusSignatures() {
+            showToast('Buscando definiciones de virus recientes...', 'info');
+            setTimeout(() => {
+                showToast('Las firmas antivirus están totalmente actualizadas.', 'success');
+                logEvent('Firmas antivirus actualizadas a la versión más reciente.');
+            }, 1500);
+        }
+
+        function clearQuarantine() {
+            showToast('La cuarentena ya se encuentra vacía.', 'info');
+        }
+
+        function togglePrivacyToggle(checkbox) {
+            showToast(checkbox.checked ? 'Ajuste de privacidad aplicado.' : 'Ajuste de privacidad revertido.', 'success');
+            logEvent(`Configuración de telemetría modificada. Estado: ${checkbox.checked}`);
+        }
+
+        function setPowerPlan(plan) {
+            showToast(`Perfil de energía cambiado a: ${plan.toUpperCase()}`, 'success');
+            logEvent(`Perfil de energía modificado: ${plan}`);
+        }
+
+        function setAccentColor(hex, rgb) {
+            document.documentElement.style.setProperty('--accent-color', hex);
+            document.documentElement.style.setProperty('--accent-rgb', rgb);
+            showToast('Color de acento actualizado correctamente.', 'success');
+            logEvent(`Color de acento cambiado a ${hex}`);
+        }
+
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `pointer-events-auto px-4 py-3 rounded-xl glass-panel border border-gray-800 text-xs font-medium text-white shadow-2xl flex items-center gap-3 transition-all transform translate-y-2 opacity-0 duration-300`;
+
+            let icon = 'fa-circle-info text-indigo-400';
+            if (type === 'success') icon = 'fa-circle-check text-emerald-400';
+            if (type === 'warn') icon = 'fa-triangle-exclamation text-amber-400';
+            if (type === 'error') icon = 'fa-circle-xmark text-rose-400';
+
+            toast.innerHTML = `<i class="fa-solid ${icon} text-base"></i><span>${message}</span>`;
+            container.appendChild(toast);
+
+            setTimeout(() => { toast.classList.remove('translate-y-2', 'opacity-0'); }, 10);
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+
+        function logEvent(message) {
+            const container = document.getElementById('logs-container');
+            if(!container) return;
+            const now = new Date().toTimeString().split(' ')[0];
+            const div = document.createElement('div');
+            div.textContent = `[${now}] [LOG] ${message}`;
+            container.prepend(div);
+        }
+
+        function startOptimization() {
+            showToast('Analizando recomendaciones de optimización (simulación)...', 'info');
+            logEvent('Análisis de optimización iniciado en modo preview.');
+            setTimeout(() => {
+                showToast('Análisis completado. Se prepararían cambios para tu revisión.', 'success');
+                logEvent('Análisis completado: cambios no aplicados en esta preview.');
+            }, 2000);
+        }
+
+        function cleanRAM() {
+            showToast('Simulación de limpieza de RAM iniciada...', 'info');
+            logEvent('Limpieza de RAM simulada; no se alteró el sistema.');
+            setTimeout(() => {
+                showToast('Preview completada: se estiman 420 MB recuperables.', 'success');
+                logEvent('Resultado estimado de RAM: 420 MB recuperables.');
+            }, 1200);
+        }
+
+        function cleanDiskCategory(type) {
+            showToast('Simulación completada: se estiman 1.8 GB recuperables.', 'success');
+            logEvent('Limpieza de disco simulada; cambios no aplicados.');
+        }
+
+        function quickRestorePoint() {
+            showToast('Simulando creación de punto de restauración...', 'info');
+            logEvent('Solicitud de restauración registrada en modo preview.');
+            setTimeout(() => {
+                showToast('Preview completada: en la versión real se solicitarían permisos de administrador.', 'success');
+                logEvent('Punto de restauración no creado: operación simulada.');
+            }, 2000);
+        }
+
+        function openInstallModal() {
+            document.getElementById('install-modal').classList.remove('hidden');
+        }
+
+        function closeInstallModal() {
+            document.getElementById('install-modal').classList.add('hidden');
+        }
+
+        function installSelectedWingetApps() {
+            closeInstallModal();
+            showToast('Instalando aplicaciones seleccionadas en segundo plano mediante Winget...', 'info');
+            logEvent('Iniciando instalación en lote de software seleccionado.');
+            setTimeout(() => {
+                showToast('¡Instalación completada con éxito!', 'success');
+                logEvent('Instalación en lote finalizada correctamente.');
+            }, 3000);
+        }
+
+function setThemeAccent(hex, rgb) {
+            document.documentElement.style.setProperty('--accent-color', hex);
+            document.documentElement.style.setProperty('--accent-rgb', rgb);
+            showToast(`Color de acento cambiado a ${hex}`, 'info');
+            localStorage.setItem('wpc_accent_hex', hex);
+            localStorage.setItem('wpc_accent_rgb', rgb);
+        }
+
+        function applyHexTheme() {
+            const hex = document.getElementById('hex-color-input').value;
+            if (hex) {
+                setThemeAccent('#' + hex, '99, 102, 241');
+            }
+        }
+
+        function toggleThemeMode(isDark) {
+            if(isDark) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+            localStorage.setItem('wpc_dark_mode', isDark);
+        }
+
+        function saveConfigState() {
+            const config = {
+                startup: document.getElementById('cfg-startup').checked,
+                idle: document.getElementById('cfg-idle').checked,
+                tray: document.getElementById('cfg-tray').checked,
+                tempAlert: document.getElementById('cfg-temp-alert').checked,
+                channel: document.getElementById('cfg-channel').value,
+                loglevel: document.getElementById('cfg-loglevel').value,
+                lang: document.getElementById('cfg-lang').value
+            };
+            localStorage.setItem('wpc_user_config', JSON.stringify(config));
+            showToast('Ajustes de configuración guardados localmente.', 'success');
+            logEvent('Configuración Pro actualizada en almacenamiento local.', 'CAMBIO');
+        }
+
+        function exportConfig() {
+            const config = localStorage.getItem('wpc_user_config') || '{}';
+            const blob = new Blob([config], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'WPC_Config_Pro_Backup.json';
+            a.click();
+            showToast('Archivo de configuración exportado.', 'success');
+        }
+
+        function resetConfigDefaults() {
+            localStorage.removeItem('wpc_user_config');
+            document.getElementById('cfg-startup').checked = true;
+            document.getElementById('cfg-idle').checked = false;
+            document.getElementById('cfg-tray').checked = true;
+            document.getElementById('cfg-temp-alert').checked = true;
+            showToast('Configuración restablecida a valores por defecto.', 'info');
+            logEvent('Ajustes restablecidos a valores de fábrica.', 'WARN');
+        }
+
+        function minimizeWindow() { showToast('Ventana minimizada en la barra de tareas.', 'info'); }
+        function toggleMaximizeWindow() { showToast('Pantalla completa alternada.', 'info'); }
+        function closeWindow() { showToast('WPC-SutilBox minimizado en segundo plano.', 'info'); }
+
+window.addEventListener('DOMContentLoaded', () => {
+            const hashTab = window.location.hash.replace('#', '');
+            if (hashTab && document.getElementById(hashTab)) {
+                switchTab(hashTab);
+            }
+            const savedAccentHex = localStorage.getItem('wpc_accent_hex');
+            const savedAccentRgb = localStorage.getItem('wpc_accent_rgb');
+            if(savedAccentHex && savedAccentRgb) {
+                document.documentElement.style.setProperty('--accent-color', savedAccentHex);
+                document.documentElement.style.setProperty('--accent-rgb', savedAccentRgb);
+            }
+            const savedConfig = localStorage.getItem('wpc_user_config');
+            if(savedConfig) {
+                try {
+                    const cfg = JSON.parse(savedConfig);
+                    if(cfg.startup !== undefined) document.getElementById('cfg-startup').checked = cfg.startup;
+                    if(cfg.idle !== undefined) document.getElementById('cfg-idle').checked = cfg.idle;
+                    if(cfg.tray !== undefined) document.getElementById('cfg-tray').checked = cfg.tray;
+                    if(cfg.tempAlert !== undefined) document.getElementById('cfg-temp-alert').checked = cfg.tempAlert;
+                    if(cfg.channel) document.getElementById('cfg-channel').value = cfg.channel;
+                    if(cfg.loglevel) document.getElementById('cfg-loglevel').value = cfg.loglevel;
+                    if(cfg.lang) document.getElementById('cfg-lang').value = cfg.lang;
+                } catch(e) {}
+            }
+        });
+
+        window.onload = function() {
+            renderAppsList();
+            renderDriversList();
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
